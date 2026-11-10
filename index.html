@@ -58,7 +58,7 @@
   .js .art.in svg{transform:none}
 
   /* ---------- Hero ---------- */
-  .hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--gutter) 80px;isolation:isolate;position:relative;overflow:hidden}
+  .hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--gutter) 80px;isolation:isolate;position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
   .hero::before{content:"";position:absolute;width:70vw;height:55vw;right:-22vw;top:-20vw;background:radial-gradient(closest-side,rgba(109,32,59,.5),transparent);z-index:-2}
   .hero::after{content:"";position:absolute;width:55vw;height:45vw;left:-24vw;bottom:-22vw;background:radial-gradient(closest-side,rgba(139,53,76,.28),transparent);z-index:-2}
   .ring{position:absolute;left:50%;top:50%;width:min(62vw,560px);aspect-ratio:1;transform:translate(-50%,-52%);border:1px solid rgba(231,182,176,.14);border-radius:50%;z-index:-1}
@@ -87,7 +87,7 @@
   /* ---------- Secciones ---------- */
   section{scroll-margin-top:80px}
   .wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
-  .what{padding:clamp(96px,14vw,200px) 0 clamp(72px,10vw,140px);border-top:1px solid var(--line)}
+  .what{padding:clamp(24px,4vw,56px) 0 clamp(32px,5vw,72px)}
   .what .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(40px,8vw,120px);align-items:start}
   h2.title{font:400 clamp(34px,4.6vw,64px)/1.05 var(--serif);color:#F0CFCC;text-wrap:balance;margin-top:18px}
   .what p{color:#C9B3B6;max-width:58ch;text-wrap:pretty}
@@ -98,11 +98,11 @@
   .fact .n{font:400 clamp(38px,4.4vw,56px)/1 var(--serif);color:var(--rose-light);font-variant-numeric:tabular-nums}
   .fact .l{color:var(--muted);font-size:15px}
 
-  .projects-head{padding:clamp(72px,10vw,140px) 0 clamp(40px,6vw,80px);border-top:1px solid var(--line)}
+  .projects-head{padding:clamp(24px,4vw,56px) 0 clamp(8px,2vw,24px)}
   .projects-head .wrap{max-width:1320px}
   .projects-head p{margin-top:18px;max-width:52ch;color:#C9B3B6}
 
-  .project{padding:clamp(48px,7vw,110px) 0}
+  .project{padding:clamp(24px,4vw,56px) 0}
   .project .wrap{display:grid;gap:clamp(32px,6vw,96px);align-items:center}
   .p-nalanda .wrap{grid-template-columns:minmax(0,58fr) minmax(0,42fr)}
   .p-forja .wrap{grid-template-columns:minmax(0,42fr) minmax(0,58fr)}
@@ -118,13 +118,13 @@
   .meta{display:flex;gap:28px;flex-wrap:wrap;margin:6px 0 26px;font:400 13px/1.4 var(--mono);color:var(--muted)}
   .meta b{font-weight:500;color:var(--rose-light);font-variant-numeric:tabular-nums}
 
-  .p-alma{position:relative;min-height:min(92dvh,820px);display:grid;align-items:end;border-top:1px solid var(--line);overflow:hidden;isolation:isolate}
+  .p-alma{position:relative;min-height:min(92dvh,820px);display:grid;align-items:end;margin-top:clamp(24px,4vw,56px);overflow:hidden;isolation:isolate}
   .p-alma .art{position:absolute;inset:0;aspect-ratio:auto;border:0;border-radius:0;z-index:-1}
   .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,9,13,.94) 6%,rgba(16,9,13,.25) 62%,rgba(16,9,13,.5))}
-  .p-alma .wrap{width:100%;padding-top:clamp(160px,24vw,320px);padding-bottom:clamp(56px,8vw,110px)}
+  .p-alma .wrap{width:100%;padding-top:clamp(140px,20vw,260px);padding-bottom:clamp(48px,7vw,96px)}
   .p-alma .p-copy{max-width:640px}
 
-  .contact{padding:clamp(80px,12vw,170px) 0;border-top:1px solid var(--line)}
+  .contact{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px)}
   .contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
   .contact p{color:#C9B3B6;max-width:46ch;text-wrap:pretty;margin-top:18px}
   .contact .links{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
@@ -191,12 +191,6 @@
       <div>
         <p class="rv">En la India, Triveni es el lugar donde confluyen tres ríos. Aquí nombra el punto de encuentro de tres proyectos del Club Kongzhi: Nalanda, que narra la historia; Forja, que investiga los conflictos que armaron la región; y Alma, que busca el pensamiento detrás de ambos.</p>
         <p class="rv" style="--d:.08s">Cada volumen tiene su propia voz y su propio diseño. Los une una misma convicción: entender Asia exige volver a sus fuentes, y el Perú universitario puede hacerlo con rigor.</p>
-        <p class="principle rv" style="--d:.12s">Toda afirmación remite a una fuente. Nada se publica sin revisión.</p>
-        <div class="facts">
-          <div class="fact rv"><span class="n">47</span><span class="l">cuadernos publicados en Nalanda</span></div>
-          <div class="fact rv" style="--d:.06s"><span class="n">15</span><span class="l">guerras en investigación para el volumen II</span></div>
-          <div class="fact rv" style="--d:.12s"><span class="n">3</span><span class="l">volúmenes: Nalanda, Forja y Alma</span></div>
-        </div>
       </div>
     </div>
   </section>
