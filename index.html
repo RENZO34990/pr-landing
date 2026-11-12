@@ -188,6 +188,25 @@
   footer.foot{position:relative;border-top:0}
   footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--ember) 50%,var(--jade))}
 
+
+  /* ---------- El Club ---------- */
+  .club{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px);background:linear-gradient(0deg,rgba(100,38,56,.4),transparent 70%)}
+  .club .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
+  .club .eyebrow{color:#F0A3AE}
+  .club-epic{font:italic 400 clamp(24px,2.8vw,36px)/1.2 var(--serif);color:#F1D4D0;max-width:24ch;margin-top:26px;text-wrap:balance}
+  .club p:not(.eyebrow):not(.club-epic){color:#C9B3B6;max-width:52ch;text-wrap:pretty;margin-top:18px}
+  .club .cta{margin-top:30px}
+  .figs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
+  .fig{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:22px 10px 20px;border:1px solid var(--line);border-radius:2px;background:rgba(24,13,19,.55)}
+  .fig .avatar{width:84px;height:84px;margin-bottom:10px;overflow:visible}
+  .fig .ring-a{fill:color-mix(in srgb,var(--tone) 9%,transparent);stroke:var(--tone);stroke-width:1}
+  .fig .glyph-a{fill:none;stroke:var(--tone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .fig strong{font:500 17px/1.2 var(--serif);color:var(--text);letter-spacing:.02em}
+  .fig em{font-style:normal;font-size:13px;color:var(--muted);line-height:1.35}
+  .fig .soc{margin-top:8px;font:400 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tone)}
+  @media (max-width:900px){.club .wrap{grid-template-columns:1fr}.figs{max-width:560px}}
+  @media (max-width:520px){.figs{grid-template-columns:1fr}.fig{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:16px;align-items:center;padding:16px}.fig .avatar{width:56px;height:56px;margin:0;grid-row:span 3}.fig strong,.fig em,.fig .soc{flex:1 1 calc(100% - 80px)}}
+
   /* ---------- Responsive ---------- */
   @media (max-width:860px){
     .what .wrap,.contact .wrap,.p-nalanda .wrap,.p-forja .wrap{grid-template-columns:1fr}
@@ -216,7 +235,7 @@
     <a href="#nalanda">Nalanda</a>
     <a href="#forja">Forja</a>
     <a href="#alma">Alma</a>
-    <a class="opt" href="https://renzo34990.github.io/gengis-biblioteca/index.html#departamento-de-investigacion">Departamento</a>
+    <a href="#club">El Club</a>
     <a class="opt" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram</a>
   </nav>
 </header>
@@ -231,13 +250,11 @@
       <path class="rv-f" d="M720 740V868"/>
       <path class="rv-a" d="M1480 80C1380 420 1180 800 720 868"/>
     </svg>
-    <p class="eyebrow rv">Club Kongzhi UNMSM / Proyecto editorial</p>
     <h1 class="brand" id="brand-title" aria-label="Triveni">
       <span class="mask" aria-hidden="true"><span>T</span></span><span class="mask" aria-hidden="true"><span>R</span></span><span class="mask" aria-hidden="true"><span>I</span></span><span class="mask" aria-hidden="true"><span>V</span></span><span class="mask" aria-hidden="true"><span>E</span></span><span class="mask" aria-hidden="true"><span>N</span></span><span class="mask" aria-hidden="true"><span>I</span></span>
     </h1>
-    <p class="manifesto rv" style="--d:.7s">El pasado que inspira.<br>El conocimiento que trasciende.</p>
-    <p class="anchor-line rv" style="--d:.85s">Tres corrientes que desembocan en un mismo cauce: leer Asia desde el Perú.</p>
-    <a class="cta rv" style="--d:1s" href="#proyectos">Ver los proyectos <span class="arr" aria-hidden="true">→</span></a>
+    <p class="manifesto rv" style="--d:.5s">El pasado que inspira.<br>El conocimiento que trasciende.</p>
+    <a class="cta rv" style="--d:.7s" href="#proyectos">Ver los proyectos <span class="arr" aria-hidden="true">→</span></a>
   </section>
 
   <section class="what" id="triveni" aria-labelledby="what-title">
@@ -342,17 +359,20 @@
     </div>
   </section>
 
-  <section class="contact" id="contacto" aria-labelledby="contact-title">
+  <section class="club" id="club" aria-labelledby="club-title">
     <div class="wrap">
-      <div>
-        <p class="eyebrow rv">Departamento de Investigación</p>
-        <h2 class="title rv" id="contact-title" style="--d:.08s">Investiga con nosotros</h2>
-        <p class="rv" style="--d:.12s">El Departamento de Investigación del Club Kongzhi está formado por estudiantes de la UNMSM. Si quieres sumarte, citar un cuaderno o proponer un tema, conoce al equipo o escríbenos por Instagram.</p>
+      <div class="club-copy">
+        <p class="eyebrow rv">Club Kongzhi UNMSM</p>
+        <h2 class="title rv" id="club-title" style="--d:.08s">El Club</h2>
+        <p class="club-epic rv" style="--d:.14s">Somos el puente entre Asia y el mundo universitario peruano.</p>
+        <p class="rv" style="--d:.2s">Donde otros ven un continente lejano, el Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
+        <a class="cta rv" style="--d:.26s" href="departamento/">Departamento de Investigación <span class="arr" aria-hidden="true">→</span></a>
       </div>
-      <div class="links">
-        <a class="cta rv" href="https://renzo34990.github.io/gengis-biblioteca/index.html#departamento-de-investigacion">Conocer al equipo <span class="arr" aria-hidden="true">→</span></a>
-        <a class="cta rv" style="--d:.06s" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram del club <span class="arr" aria-hidden="true">→</span></a>
-      </div>
+      <ul class="figs" aria-label="Principales contribuyentes">
+      <li class="fig tone-n rv" style="--d:0.0s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><circle cx="47" cy="43" r="5.5"/><path d="M51 47l6 6"/></g></svg><strong>Renzo</strong><em>Director de Investigación</em><span class="soc">LinkedIn · por añadir</span></li>
+      <li class="fig tone-f rv" style="--d:0.1s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      <li class="fig tone-a rv" style="--d:0.2s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      </ul>
     </div>
   </section>
 </main>

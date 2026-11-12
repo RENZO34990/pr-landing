@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departamento de Investigación | Triveni</title>
+<meta name="description" content="El Departamento de Investigación del Club Kongzhi UNMSM: cinco estudiantes que investigan, verifican y escriben lo que se publica en Nalanda y Forja.">
+<meta name="theme-color" content="#10090D">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Triveni">
+<meta property="og:locale" content="es_PE">
+<meta property="og:title" content="Departamento de Investigación | Triveni">
+<meta property="og:description" content="Cinco estudiantes de la UNMSM que investigan, verifican y escriben lo que se publica en Nalanda y Forja.">
+<meta property="og:url" content="https://renzo34990.github.io/pr-landing/departamento/">
+<meta property="og:image" content="https://renzo34990.github.io/pr-landing/assets/og/triveni.jpg">
+<link rel="canonical" href="https://renzo34990.github.io/pr-landing/departamento/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2310090D'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23E7B6B0' font-family='Georgia,serif'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/fonts/cormorant-garamond.css">
+<link rel="stylesheet" href="../assets/fonts/dm-sans.css">
+<link rel="stylesheet" href="../assets/fonts/ibm-plex-mono.css">
+<style>
+  :root{
+    --ink:#10090D; --ink-2:#180D13; --wine:#401522; --wine-2:#642638;
+    --rose:#B95F76; --rose-light:#E7B6B0; --text:#F4E7E5; --muted:#B99DA2;
+    --line:rgba(231,182,176,.22); --line-strong:rgba(231,182,176,.55);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'DM Sans',Arial,sans-serif; --mono:'IBM Plex Mono',monospace;
+    --ease-ui:cubic-bezier(0.16,1,0.3,1); --ease-ed:cubic-bezier(0.22,1,0.36,1);
+    --gutter:clamp(20px,6vw,88px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--ink)}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--rose);color:var(--ink)}
+  :focus-visible{outline:2px solid var(--rose-light);outline-offset:4px}
+  .skip-link{position:absolute;left:1rem;top:-4rem;z-index:200;background:var(--rose-light);color:var(--ink);padding:.7rem 1.1rem;font:500 .85rem/1 var(--sans);transition:top .25s var(--ease-ui)}
+  .skip-link:focus{top:1rem}
+  main,footer,header{position:relative;z-index:2}
+
+  /* ---------- Cabecera ---------- */
+  .topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 var(--gutter);background:rgba(16,9,13,0);border-bottom:1px solid transparent;transition:background-color .45s var(--ease-ed),border-color .45s var(--ease-ed)}
+  .topbar.solid{background:rgba(16,9,13,.92);border-bottom-color:var(--line)}
+  .wordmark{font:500 24px/1 var(--serif);letter-spacing:.14em}
+  .wordmark span{color:var(--rose)}
+  .nav{display:flex;align-items:center;gap:clamp(16px,2.6vw,36px)}
+  .nav a{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:12px 0;transition:color .25s var(--ease-ui)}
+  .nav a[aria-current="true"]{color:var(--rose-light)}
+  @media (hover:hover){.nav a:hover{color:var(--rose-light)}}
+
+  /* ---------- Revelados ---------- */
+  .js .rv{opacity:0;transform:translateY(16px);transition:opacity .9s var(--ease-ed),transform .9s var(--ease-ed);transition-delay:var(--d,0s)}
+  .js .rv.in{opacity:1;transform:none}
+  .js .mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+  .js .mask > span{display:inline-block;transform:translateY(112%);transition:transform 1.2s var(--ease-ed);transition-delay:var(--d,0s)}
+  .js .in .mask > span,.js .mask.in > span{transform:none}
+  .js .art{clip-path:inset(0 100% 0 0);transition:clip-path 1.4s var(--ease-ed)}
+  .js .art.in{clip-path:inset(0 0 0 0)}
+  .js .art svg{transform:scale(1.08);transition:transform 1.6s var(--ease-ed)}
+  .js .art.in svg{transform:none}
+
+  /* ---------- Hero ---------- */
+  .hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--gutter) 80px;isolation:isolate;position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(#000 92%,transparent);mask-image:linear-gradient(#000 92%,transparent)}
+  .hero::before{content:"";position:absolute;width:70vw;height:55vw;right:-22vw;top:-20vw;background:radial-gradient(closest-side,rgba(109,32,59,.5),transparent);z-index:-2}
+  .hero::after{content:"";position:absolute;width:55vw;height:45vw;left:-24vw;bottom:-22vw;background:radial-gradient(closest-side,rgba(139,53,76,.28),transparent);z-index:-2}
+  .ring{position:absolute;left:50%;top:50%;width:min(62vw,560px);aspect-ratio:1;transform:translate(-50%,-52%);border:1px solid rgba(231,182,176,.14);border-radius:50%;z-index:-1}
+  .ring::before,.ring::after{content:"";position:absolute;border-radius:50%}
+  .ring::before{inset:9%;border:1px dashed rgba(231,182,176,.16)}
+  .ring::after{inset:21%;border:1px solid rgba(231,182,176,.14)}
+  .eyebrow{font:500 12px/1.6 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--rose-light)}
+  .hero .eyebrow{margin-bottom:22px}
+  h1.brand{font:400 clamp(52px,12vw,168px)/.9 var(--serif);letter-spacing:.14em;color:#F1D4D0;margin-right:-.14em}
+  h1.brand .mask:nth-child(1) > span{--d:.1s}
+  h1.brand .mask:nth-child(2) > span{--d:.18s}
+  h1.brand .mask:nth-child(3) > span{--d:.26s}
+  h1.brand .mask:nth-child(4) > span{--d:.34s}
+  h1.brand .mask:nth-child(5) > span{--d:.42s}
+  h1.brand .mask:nth-child(6) > span{--d:.5s}
+  h1.brand .mask:nth-child(7) > span{--d:.58s}
+  .manifesto{font:400 clamp(20px,2.6vw,30px)/1.35 var(--serif);font-style:italic;color:#E5B7B3;margin:34px auto 0;max-width:30ch;text-wrap:balance}
+  .anchor-line{margin:22px auto 0;max-width:46ch;color:var(--muted);font-size:15px;text-wrap:pretty}
+  .cta{display:inline-flex;align-items:center;gap:12px;font:500 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--rose-light);padding:14px 0;border-bottom:1px solid var(--line-strong);transition:color .3s var(--ease-ui),border-color .3s var(--ease-ui),transform .2s var(--ease-ui)}
+  .cta .arr{display:inline-block;transition:transform .3s var(--ease-ui)}
+  .cta:active{transform:scale(0.97)}
+  @media (hover:hover){.cta:hover{color:#fff;border-color:var(--rose-light)}.cta:hover .arr{transform:translateX(6px)}}
+  .cta.is-off{color:var(--muted);border-bottom-style:dashed;border-color:var(--line);cursor:default}
+  .hero .cta{margin-top:44px}
+
+  /* ---------- Secciones ---------- */
+  section{scroll-margin-top:80px}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
+  .what{padding:clamp(24px,4vw,56px) 0 clamp(32px,5vw,72px)}
+  .what .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(40px,8vw,120px);align-items:start}
+  h2.title{font:400 clamp(34px,4.6vw,64px)/1.05 var(--serif);color:#F0CFCC;text-wrap:balance;margin-top:18px}
+  .what p{color:#C9B3B6;max-width:58ch;text-wrap:pretty}
+  .what p + p{margin-top:1.1em}
+  .principle{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);font:400 clamp(20px,2vw,26px)/1.35 var(--serif);font-style:italic;color:#E5B7B3;max-width:32ch}
+  .facts{margin-top:48px;border-top:1px solid var(--line)}
+  .fact{display:grid;grid-template-columns:5.5rem 1fr;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line)}
+  .fact .n{font:400 clamp(38px,4.4vw,56px)/1 var(--serif);color:var(--rose-light);font-variant-numeric:tabular-nums}
+  .fact .l{color:var(--muted);font-size:15px}
+
+  .projects-head{padding:clamp(24px,4vw,56px) 0 clamp(8px,2vw,24px)}
+  .projects-head .wrap{max-width:1320px}
+  .projects-head p{margin-top:18px;max-width:52ch;color:#C9B3B6}
+
+  .project{padding:clamp(24px,4vw,56px) 0}
+  .project .wrap{display:grid;gap:clamp(32px,6vw,96px);align-items:center}
+  .p-nalanda .wrap{grid-template-columns:minmax(0,58fr) minmax(0,42fr)}
+  .p-forja .wrap{grid-template-columns:minmax(0,42fr) minmax(0,58fr)}
+  .art{position:relative;aspect-ratio:3/2;overflow:hidden;border:1px solid var(--line);border-radius:2px;background:linear-gradient(150deg,#2A1320,#10090D)}
+  .art-par{position:absolute;inset:-8% 0}
+  .art svg{position:absolute;inset:0;width:100%;height:100%}
+  .tag{font:500 12px/1.6 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--rose)}
+  .p-copy h2{font:400 clamp(44px,6vw,88px)/.98 var(--serif);letter-spacing:.04em;color:#F1D4D0;margin:14px 0 20px}
+  .p-copy p{color:#C9B3B6;max-width:46ch;text-wrap:pretty}
+  .status{display:flex;align-items:center;gap:10px;margin:26px 0 8px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .status::before{content:"";width:22px;height:1px;background:var(--rose)}
+  .status.live{color:var(--rose-light)}
+  .meta{display:flex;gap:28px;flex-wrap:wrap;margin:6px 0 26px;font:400 13px/1.4 var(--mono);color:var(--muted)}
+  .meta b{font-weight:500;color:var(--rose-light);font-variant-numeric:tabular-nums}
+
+  .p-alma{position:relative;min-height:min(92dvh,820px);display:grid;align-items:end;margin-top:clamp(24px,4vw,56px);overflow:hidden;isolation:isolate}
+  .p-alma .art{position:absolute;inset:0;aspect-ratio:auto;border:0;border-radius:0;z-index:-1}
+  .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,9,13,.94) 6%,rgba(16,9,13,.25) 62%,rgba(16,9,13,.5))}
+  .p-alma .wrap{width:100%;padding-top:clamp(140px,20vw,260px);padding-bottom:clamp(48px,7vw,96px)}
+  .p-alma .p-copy{max-width:640px}
+
+  .contact{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px)}
+  .contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
+  .contact p{color:#C9B3B6;max-width:46ch;text-wrap:pretty;margin-top:18px}
+  .contact .links{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+
+  footer.foot{border-top:1px solid var(--line);padding:36px 0 44px}
+  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline;font:400 12px/1.7 var(--mono);letter-spacing:.1em;color:#9E7E86}
+  footer .wordmark{font-size:20px;color:var(--text)}
+  footer a{transition:color .25s var(--ease-ui)}
+  @media (hover:hover){footer a:hover{color:var(--rose-light)}}
+
+
+  /* ---------- Tres ríos: una tonalidad por proyecto ---------- */
+  :root{--gold:#E4B65F; --ember:#E8803F; --jade:#5DB5A4; --vermilion:#D9533A}
+  .tone-n{--tone:var(--gold);--tone-2:var(--vermilion)}
+  .tone-f{--tone:var(--ember);--tone-2:#FFB27A}
+  .tone-a{--tone:var(--jade);--tone-2:#B8F0E0}
+  .hero{background:
+    radial-gradient(34vw 26vw at 14% 86%,rgba(228,182,95,.20),transparent 70%),
+    radial-gradient(30vw 24vw at 50% 100%,rgba(232,128,63,.20),transparent 70%),
+    radial-gradient(34vw 26vw at 86% 86%,rgba(93,181,164,.18),transparent 70%)}
+  .hero::before{background:radial-gradient(closest-side,rgba(138,36,72,.78),transparent)}
+  .hero::after{background:radial-gradient(closest-side,rgba(176,62,96,.45),transparent)}
+  .rivers{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .rivers path{stroke-width:1.6;stroke-dasharray:1800;stroke-dashoffset:1800;animation:flow 2.6s var(--ease-ed) .5s forwards}
+  .rivers .rv-n{stroke:var(--gold);stroke-opacity:.75}
+  .rivers .rv-f{stroke:var(--ember);stroke-opacity:.75;animation-delay:.7s}
+  .rivers .rv-a{stroke:var(--jade);stroke-opacity:.75;animation-delay:.9s}
+  @keyframes flow{to{stroke-dashoffset:0}}
+  .hero .eyebrow{color:#F6C9C1}
+  h1.brand{color:#FBE3DF;text-shadow:0 0 60px rgba(185,95,118,.35)}
+  .what{background:linear-gradient(180deg,transparent,rgba(100,38,56,.42) 30%,rgba(100,38,56,.42) 70%,transparent)}
+  .what .eyebrow,.projects-head .eyebrow,.contact .eyebrow{color:#F0A3AE}
+  .rn{font-weight:500}
+  .n-n{color:var(--gold)}.n-f{color:var(--ember)}.n-a{color:var(--jade)}
+  .projects-head{background:linear-gradient(180deg,transparent,rgba(64,21,34,.5))}
+  .project{position:relative;isolation:isolate}
+  .p-nalanda{background:radial-gradient(60% 50% at 100% 50%,rgba(228,182,95,.15),transparent 70%),linear-gradient(180deg,rgba(64,21,34,.5),transparent 80%)}
+  .p-forja{background:radial-gradient(60% 50% at 0% 50%,rgba(232,128,63,.16),transparent 70%)}
+  .project .tag,.p-alma .tag{color:var(--tone)}
+  .project .tag::before,.p-alma .tag::before{content:"";display:block;width:48px;height:3px;background:var(--tone);margin-bottom:16px}
+  .project .status::before,.p-alma .status::before{background:var(--tone);height:2px}
+  .project .status.live,.p-alma .status.live{color:var(--tone-2)}
+  .project .meta b,.p-alma .meta b{color:var(--tone)}
+  .project .cta:not(.is-off),.p-alma .cta:not(.is-off){color:var(--tone);border-color:var(--tone)}
+  @media (hover:hover){.project .cta:not(.is-off):hover{color:#fff;border-color:var(--tone-2)}}
+  .project .art{border-color:color-mix(in srgb,var(--tone) 45%,transparent)}
+  .p-copy h2{text-shadow:0 0 48px color-mix(in srgb,var(--tone) 30%,transparent)}
+  .p-alma .p-copy h2{color:#E4FAF3}
+  .nav a::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:9px;vertical-align:1px;background:transparent;transition:background-color .25s var(--ease-ui)}
+  .nav a[href="#nalanda"]::before{background:var(--gold)}
+  .nav a[href="#forja"]::before{background:var(--ember)}
+  .nav a[href="#alma"]::before{background:var(--jade)}
+  .nav a.opt::before{display:none}
+  .contact{background:linear-gradient(0deg,rgba(100,38,56,.4),transparent 70%)}
+  footer.foot{position:relative;border-top:0}
+  footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--ember) 50%,var(--jade))}
+
+
+  /* ---------- El Club ---------- */
+  .club{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px);background:linear-gradient(0deg,rgba(100,38,56,.4),transparent 70%)}
+  .club .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
+  .club .eyebrow{color:#F0A3AE}
+  .club-epic{font:italic 400 clamp(24px,2.8vw,36px)/1.2 var(--serif);color:#F1D4D0;max-width:24ch;margin-top:26px;text-wrap:balance}
+  .club p:not(.eyebrow):not(.club-epic){color:#C9B3B6;max-width:52ch;text-wrap:pretty;margin-top:18px}
+  .club .cta{margin-top:30px}
+  .figs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
+  .fig{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:22px 10px 20px;border:1px solid var(--line);border-radius:2px;background:rgba(24,13,19,.55)}
+  .fig .avatar{width:84px;height:84px;margin-bottom:10px;overflow:visible}
+  .fig .ring-a{fill:color-mix(in srgb,var(--tone) 9%,transparent);stroke:var(--tone);stroke-width:1}
+  .fig .glyph-a{fill:none;stroke:var(--tone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .fig strong{font:500 17px/1.2 var(--serif);color:var(--text);letter-spacing:.02em}
+  .fig em{font-style:normal;font-size:13px;color:var(--muted);line-height:1.35}
+  .fig .soc{margin-top:8px;font:400 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tone)}
+  @media (max-width:900px){.club .wrap{grid-template-columns:1fr}.figs{max-width:560px}}
+  @media (max-width:520px){.figs{grid-template-columns:1fr}.fig{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:16px;align-items:center;padding:16px}.fig .avatar{width:56px;height:56px;margin:0;grid-row:span 3}.fig strong,.fig em,.fig .soc{flex:1 1 calc(100% - 80px)}}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .what .wrap,.contact .wrap,.p-nalanda .wrap,.p-forja .wrap{grid-template-columns:1fr}
+    .p-forja .art{order:-1}
+    .art{aspect-ratio:4/3}
+    .topbar{height:60px}
+    .nav a.opt{display:none}
+    .contact .wrap{align-items:start}
+  }
+  @media (max-width:520px){
+    .nav{gap:14px}
+    .nav a{font-size:11px;letter-spacing:.1em}
+    .fact{grid-template-columns:4.2rem 1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  }
+
+  /* ---------- Departamento ---------- */
+  .dpt{padding:clamp(120px,14vw,184px) 0 clamp(56px,8vw,112px);background:radial-gradient(60% 40% at 80% 0%,rgba(138,36,72,.35),transparent 70%)}
+  .dpt .wrap{max-width:1100px}
+  .dpt .eyebrow{color:#F0A3AE}
+  .dpt h1{font:400 clamp(40px,6vw,84px)/1 var(--serif);color:#F1D4D0;margin-top:18px;text-wrap:balance}
+  .dpt .lead{color:#C9B3B6;max-width:58ch;margin-top:26px;font-size:17px;text-wrap:pretty}
+  .dpt h2{font:500 12px/1.6 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin:clamp(40px,6vw,72px) 0 0;padding-bottom:14px;border-bottom:1px solid var(--line-strong)}
+  .roster{list-style:none}
+  .mem{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:6px 22px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+  .mem .avatar{width:64px;height:64px;overflow:visible}
+  .mem .ring-a{fill:color-mix(in srgb,var(--tone) 9%,transparent);stroke:var(--tone);stroke-width:1}
+  .mem .glyph-a{fill:none;stroke:var(--tone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .mem strong{display:block;font:500 22px/1.2 var(--serif);color:var(--text);letter-spacing:.02em}
+  .mem em{display:block;font-style:normal;font-size:14px;color:var(--muted);margin-top:2px}
+  .mem .soc{font:400 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tone)}
+  .tone-n{--tone:#E4B65F}.tone-f{--tone:#E8803F}.tone-a{--tone:#5DB5A4}
+  .dpt .links{display:flex;flex-wrap:wrap;gap:8px 36px;margin-top:20px}
+  .dpt p.note{color:#C9B3B6;max-width:58ch;margin-top:18px}
+  @media (max-width:640px){.mem{grid-template-columns:52px minmax(0,1fr);}.mem .avatar{width:52px;height:52px}.mem .soc{grid-column:2}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="topbar solid" id="topbar">
+  <a class="wordmark" href="../" aria-label="Triveni, inicio">T<span>.</span></a>
+  <nav class="nav" aria-label="Principal">
+    <a href="../#club">&larr; El Club</a>
+    <a class="opt" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</header>
+
+<main id="contenido">
+  <section class="dpt" aria-labelledby="dpt-title">
+    <div class="wrap">
+      <p class="eyebrow">Club Kongzhi UNMSM</p>
+      <h1 id="dpt-title">Departamento de Investigación</h1>
+      <p class="lead">Cinco estudiantes de la UNMSM investigan, verifican y escriben lo que se publica en Nalanda y Forja. De este equipo salen los principales contribuyentes de cada proyecto, los que aparecen en El Club.</p>
+
+      <h2>Los cinco miembros</h2>
+      <ul class="roster">
+      <li class="mem tone-n"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><circle cx="47" cy="43" r="5.5"/><path d="M51 47l6 6"/></g></svg><div class="who"><strong>Renzo</strong><em>Director de Investigación</em></div><span class="soc">LinkedIn · por añadir</span></li>
+      <li class="mem tone-f"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><div class="who"><strong>Nombre por añadir</strong><em>Investigador/a del Departamento</em></div><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      <li class="mem tone-a"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><div class="who"><strong>Nombre por añadir</strong><em>Investigador/a del Departamento</em></div><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      <li class="mem tone-n"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><div class="who"><strong>Nombre por añadir</strong><em>Investigador/a del Departamento</em></div><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      <li class="mem tone-f"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><div class="who"><strong>Nombre por añadir</strong><em>Investigador/a del Departamento</em></div><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      </ul>
+
+      <h2>Colaborar</h2>
+      <p class="note">Si quieres corregirnos, proponer un tema, colaborar o invitarnos a conversar, escríbenos por LinkedIn o Instagram.</p>
+      <div class="links">
+        <a class="cta" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram del club <span class="arr" aria-hidden="true">→</span></a>
+        <a class="cta" href="../#club">Volver a El Club <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="wordmark" href="../">TRIVENI</a>
+    <span>Un proyecto del Club Kongzhi UNMSM</span>
+    <span>&copy; <span data-year>2026</span> Club Kongzhi UNMSM</span>
+  </div>
+</footer>
+<script>var y=document.querySelector('[data-year]');if(y)y.textContent=new Date().getFullYear();</script>
+</body>
+</html>
