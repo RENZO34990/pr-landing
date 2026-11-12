@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="assets/fonts/cormorant-garamond.css">
 <link rel="stylesheet" href="assets/fonts/dm-sans.css">
 <link rel="stylesheet" href="assets/fonts/ibm-plex-mono.css">
+<script src="assets/palette.js"></script>
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
@@ -143,31 +144,32 @@
 
 
   /* ---------- Tres ríos: una tonalidad por proyecto ---------- */
-  :root{--gold:#E4B65F; --ember:#E8803F; --jade:#5DB5A4; --vermilion:#D9533A}
+  :root{--gold:#E4B65F; --ember:#E8803F; --jade:#5DB5A4; --vermilion:#D9533A;
+    --w1:138,36,72; --w2:176,62,96; --w3:100,38,56; --w4:64,21,34; --rl:228,182,95; --rc:232,128,63; --rr:93,181,164; --gy1:86%; --gy3:86%; --gx1:14%; --gx3:86%}
   .tone-n{--tone:var(--gold);--tone-2:var(--vermilion)}
   .tone-f{--tone:var(--ember);--tone-2:#FFB27A}
   .tone-a{--tone:var(--jade);--tone-2:#B8F0E0}
   .hero{background:
-    radial-gradient(34vw 26vw at 14% 86%,rgba(228,182,95,.20),transparent 70%),
-    radial-gradient(30vw 24vw at 50% 100%,rgba(232,128,63,.20),transparent 70%),
-    radial-gradient(34vw 26vw at 86% 86%,rgba(93,181,164,.18),transparent 70%)}
-  .hero::before{background:radial-gradient(closest-side,rgba(138,36,72,.78),transparent)}
-  .hero::after{background:radial-gradient(closest-side,rgba(176,62,96,.45),transparent)}
+    radial-gradient(34vw 26vw at var(--gx1) var(--gy1),rgba(var(--rl),.20),transparent 70%),
+    radial-gradient(30vw 24vw at 50% 100%,rgba(var(--rc),.20),transparent 70%),
+    radial-gradient(34vw 26vw at var(--gx3) var(--gy3),rgba(var(--rr),.18),transparent 70%)}
+  .hero::before{background:radial-gradient(closest-side,rgba(var(--w1),.78),transparent)}
+  .hero::after{background:radial-gradient(closest-side,rgba(var(--w2),.45),transparent)}
   .rivers{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
   .rivers path{stroke-width:1.6;stroke-dasharray:1800;stroke-dashoffset:1800;animation:flow 2.6s var(--ease-ed) .5s forwards}
-  .rivers .rv-n{stroke:var(--gold);stroke-opacity:.75}
-  .rivers .rv-f{stroke:var(--ember);stroke-opacity:.75;animation-delay:.7s}
-  .rivers .rv-a{stroke:var(--jade);stroke-opacity:.75;animation-delay:.9s}
+  .rivers .rv-n{stroke:rgb(var(--rl));stroke-opacity:.75}
+  .rivers .rv-f{stroke:rgb(var(--rc));stroke-opacity:.75;animation-delay:.7s}
+  .rivers .rv-a{stroke:rgb(var(--rr));stroke-opacity:.75;animation-delay:.9s}
   @keyframes flow{to{stroke-dashoffset:0}}
   .hero .eyebrow{color:#F6C9C1}
-  h1.brand{color:#FBE3DF;text-shadow:0 0 60px rgba(185,95,118,.35)}
-  .what{background:linear-gradient(180deg,transparent,rgba(100,38,56,.42) 30%,rgba(100,38,56,.42) 70%,transparent)}
+  h1.brand{color:#FBE3DF;text-shadow:0 0 60px color-mix(in srgb,var(--rose) 35%,transparent)}
+  .what{background:linear-gradient(180deg,transparent,rgba(var(--w3),.42) 30%,rgba(var(--w3),.42) 70%,transparent)}
   .what .eyebrow,.projects-head .eyebrow,.contact .eyebrow{color:#F0A3AE}
   .rn{font-weight:500}
   .n-n{color:var(--gold)}.n-f{color:var(--ember)}.n-a{color:var(--jade)}
-  .projects-head{background:linear-gradient(180deg,transparent,rgba(64,21,34,.5))}
+  .projects-head{background:linear-gradient(180deg,transparent,rgba(var(--w4),.5))}
   .project{position:relative;isolation:isolate}
-  .p-nalanda{background:radial-gradient(60% 50% at 100% 50%,rgba(228,182,95,.15),transparent 70%),linear-gradient(180deg,rgba(64,21,34,.5),transparent 80%)}
+  .p-nalanda{background:radial-gradient(60% 50% at 100% 50%,rgba(228,182,95,.15),transparent 70%),linear-gradient(180deg,rgba(var(--w4),.5),transparent 80%)}
   .p-forja{background:radial-gradient(60% 50% at 0% 50%,rgba(232,128,63,.16),transparent 70%)}
   .project .tag,.p-alma .tag{color:var(--tone)}
   .project .tag::before,.p-alma .tag::before{content:"";display:block;width:48px;height:3px;background:var(--tone);margin-bottom:16px}
@@ -184,13 +186,13 @@
   .nav a[href="#forja"]::before{background:var(--ember)}
   .nav a[href="#alma"]::before{background:var(--jade)}
   .nav a.opt::before{display:none}
-  .contact{background:linear-gradient(0deg,rgba(100,38,56,.4),transparent 70%)}
+  .contact{background:linear-gradient(0deg,rgba(var(--w3),.4),transparent 70%)}
   footer.foot{position:relative;border-top:0}
-  footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--ember) 50%,var(--jade))}
+  footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgb(var(--rl)),rgb(var(--rc)) 50%,rgb(var(--rr)))}
 
 
   /* ---------- El Club ---------- */
-  .club{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px);background:linear-gradient(0deg,rgba(100,38,56,.4),transparent 70%)}
+  .club{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px);background:linear-gradient(0deg,rgba(var(--w3),.4),transparent 70%)}
   .club .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
   .club .eyebrow{color:#F0A3AE}
   .club-epic{font:italic 400 clamp(24px,2.8vw,36px)/1.2 var(--serif);color:#F1D4D0;max-width:24ch;margin-top:26px;text-wrap:balance}
@@ -365,7 +367,7 @@
         <p class="eyebrow rv">Club Kongzhi UNMSM</p>
         <h2 class="title rv" id="club-title" style="--d:.08s">El Club</h2>
         <p class="club-epic rv" style="--d:.14s">Somos el puente entre Asia y el mundo universitario peruano.</p>
-        <p class="rv" style="--d:.2s">Donde otros ven un continente lejano, el Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
+        <p class="rv" style="--d:.2s">Donde otros ven un continente lejano, Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
         <a class="cta rv" style="--d:.26s" href="departamento/">Departamento de Investigación <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <ul class="figs" aria-label="Principales contribuyentes">
