@@ -27,10 +27,15 @@
   :root{
     --ink:#10090D; --ink-2:#180D13; --wine:#401522; --wine-2:#642638;
     --rose:#B95F76; --rose-light:#E7B6B0; --text:#F4E7E5; --muted:#B99DA2;
-    --line:rgba(231,182,176,.22); --line-strong:rgba(231,182,176,.55);
+    --line:rgba(231,182,176,.2); --line-strong:rgba(231,182,176,.5);
     --serif:'Cormorant Garamond',Georgia,serif; --sans:'DM Sans',Arial,sans-serif; --mono:'IBM Plex Mono',monospace;
     --ease-ui:cubic-bezier(0.16,1,0.3,1); --ease-ed:cubic-bezier(0.22,1,0.36,1);
     --gutter:clamp(20px,6vw,88px);
+    --gold:#E4B65F; --ember:#E8803F; --jade:#5DB5A4; --vermilion:#D9533A;
+    --w1:138,36,72; --w2:176,62,96; --w3:100,38,56; --w4:64,21,34; --rl:228,182,95; --rc:232,128,63; --rr:93,181,164;
+    --gy1:86%; --gy3:86%; --gx1:14%; --gx3:86%;
+    --sun0:247,205,110; --sun1:255,160,100; --sun2:130,226,200;
+    --foil:linear-gradient(100deg,#F6E2B0 0%,#E2B769 34%,#FFF3D2 50%,#C98F45 66%,#F1D697 100%);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:var(--ink)}
@@ -42,39 +47,80 @@
   .skip-link{position:absolute;left:1rem;top:-4rem;z-index:200;background:var(--rose-light);color:var(--ink);padding:.7rem 1.1rem;font:500 .85rem/1 var(--sans);transition:top .25s var(--ease-ui)}
   .skip-link:focus{top:1rem}
   main,footer,header{position:relative;z-index:2}
+  section{scroll-margin-top:80px}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
 
   /* ---------- Cabecera ---------- */
   .topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 var(--gutter);background:rgba(16,9,13,0);border-bottom:1px solid transparent;transition:background-color .45s var(--ease-ed),border-color .45s var(--ease-ed)}
-  .topbar.solid{background:rgba(16,9,13,.92);border-bottom-color:var(--line)}
+  .topbar.solid{background:rgba(16,9,13,.9);border-bottom-color:var(--line)}
   .wordmark{font:500 24px/1 var(--serif);letter-spacing:.14em}
   .wordmark span{color:var(--rose)}
   .nav{display:flex;align-items:center;gap:clamp(16px,2.6vw,36px)}
   .nav a{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:12px 0;transition:color .25s var(--ease-ui)}
   .nav a[aria-current="true"]{color:var(--rose-light)}
   @media (hover:hover){.nav a:hover{color:var(--rose-light)}}
+  .nav a::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:9px;vertical-align:1px;background:transparent}
+  .nav a[href="#nalanda"]::before{background:var(--gold)}
+  .nav a[href="#forja"]::before{background:var(--ember)}
+  .nav a[href="#alma"]::before{background:var(--jade)}
+  .nav a.opt::before,.nav a[href="#club"]::before{display:none}
+
+  /* Indice de capitulos (I II III) */
+  .chap{position:fixed;right:clamp(14px,2vw,30px);top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:6px;align-items:center}
+  .chap a{font:500 italic 17px/1 var(--serif);color:rgba(231,182,176,.38);padding:7px 6px;position:relative;transition:color .4s var(--ease-ui)}
+  .chap a::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:6px;background:var(--line)}
+  .chap a:last-child::after{display:none}
+  .chap a[aria-current="true"]{color:rgb(var(--sun0))}
+  .chap a[aria-current="true"]::before{content:"";position:absolute;right:calc(100% + 2px);top:50%;width:14px;height:1px;background:rgb(var(--sun0))}
+  @media (max-width:980px){.chap{display:none}}
 
   /* ---------- Revelados ---------- */
-  .js .rv{opacity:0;transform:translateY(16px);transition:opacity .9s var(--ease-ed),transform .9s var(--ease-ed);transition-delay:var(--d,0s)}
+  .js .rv{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease-ed),transform 1s var(--ease-ed);transition-delay:var(--d,0s)}
   .js .rv.in{opacity:1;transform:none}
   .js .mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
   .js .mask > span{display:inline-block;transform:translateY(112%);transition:transform 1.2s var(--ease-ed);transition-delay:var(--d,0s)}
   .js .in .mask > span,.js .mask.in > span{transform:none}
-  .js .art{clip-path:inset(0 100% 0 0);transition:clip-path 1.4s var(--ease-ed)}
+  /* Titulares: esperan a que la seccion se asiente y suben solos */
+  .rise{display:block}
+  .js .rise{overflow:hidden;padding:.1em 0 .16em;margin:-.1em 0 -.16em}
+  .js .rise > .ri{display:block;transform:translateY(112%);transition:transform 1.4s var(--ease-ed);transition-delay:var(--d,0s)}
+  .js .rise.in > .ri{transform:none}
+  .js .art{clip-path:inset(0 100% 0 0);transition:clip-path 1.5s var(--ease-ed)}
   .js .art.in{clip-path:inset(0 0 0 0)}
-  .js .art svg{transform:scale(1.08);transition:transform 1.6s var(--ease-ed)}
+  .js .art svg{transform:scale(1.08);transition:transform 1.8s var(--ease-ed)}
   .js .art.in svg{transform:none}
 
-  /* ---------- Hero ---------- */
-  .hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--gutter) 80px;isolation:isolate;position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(#000 92%,transparent);mask-image:linear-gradient(#000 92%,transparent)}
-  .hero::before{content:"";position:absolute;width:70vw;height:55vw;right:-22vw;top:-20vw;background:radial-gradient(closest-side,rgba(109,32,59,.5),transparent);z-index:-2}
-  .hero::after{content:"";position:absolute;width:55vw;height:45vw;left:-24vw;bottom:-22vw;background:radial-gradient(closest-side,rgba(139,53,76,.28),transparent);z-index:-2}
-  .ring{position:absolute;left:50%;top:50%;width:min(62vw,560px);aspect-ratio:1;transform:translate(-50%,-52%);border:1px solid rgba(231,182,176,.14);border-radius:50%;z-index:-1}
+  /* ---------- Lamina dorada (numerales y cifras) ---------- */
+  .foil{background:var(--foil);background-size:240% 100%;background-position:0 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+  @media (prefers-reduced-motion:no-preference){.foil{animation:sheen 11s linear infinite}@keyframes sheen{to{background-position:-240% 0}}}
+
+  /* ---------- Cabecera de capitulo ---------- */
+  .sec{position:relative}
+  .s1{--acc:var(--sun0)} .s2{--acc:var(--sun1)} .s3{--acc:var(--sun2)}
+  .chap-head{display:flex;align-items:center;gap:clamp(14px,2vw,26px);margin-bottom:clamp(28px,4vw,52px)}
+  .chap-head .roman{font:400 italic clamp(44px,5vw,68px)/1 var(--serif);padding-right:.08em}
+  .chap-head .rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(var(--acc),.8),rgba(var(--acc),.05))}
+  .chap-head .name{font:500 12px/1.4 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:rgb(var(--acc))}
+  .eyebrow{font:500 12px/1.6 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#F0A3AE}
+
+  /* ---------- Capitulo I: hero ---------- */
+  .hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:110px var(--gutter) clamp(150px,24vh,230px);isolation:isolate;position:relative;overflow:hidden;
+    background:radial-gradient(34vw 26vw at var(--gx1) var(--gy1),rgba(var(--rl),.12),transparent 70%),radial-gradient(34vw 26vw at var(--gx3) var(--gy3),rgba(var(--rr),.11),transparent 70%)}
+  .hero::before{content:"";position:absolute;width:70vw;height:55vw;right:-22vw;top:-22vw;background:radial-gradient(closest-side,rgba(var(--w1),.7),transparent);z-index:-2}
+  .hero::after{content:"";position:absolute;width:55vw;height:45vw;left:-24vw;top:-14vw;background:radial-gradient(closest-side,rgba(var(--w2),.3),transparent);z-index:-2}
+  .hz-host{position:absolute;inset:0;z-index:-1;pointer-events:none}
+  .hz-host canvas,.hz-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .ring{position:absolute;left:50%;top:44%;width:min(62vw,560px);aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid rgba(231,182,176,.12);border-radius:50%;z-index:-1}
   .ring::before,.ring::after{content:"";position:absolute;border-radius:50%}
-  .ring::before{inset:9%;border:1px dashed rgba(231,182,176,.16)}
-  .ring::after{inset:21%;border:1px solid rgba(231,182,176,.14)}
-  .eyebrow{font:500 12px/1.6 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--rose-light)}
-  .hero .eyebrow{margin-bottom:22px}
-  h1.brand{font:400 clamp(52px,12vw,168px)/.9 var(--serif);letter-spacing:.14em;color:#F1D4D0;margin-right:-.14em}
+  .ring::before{inset:9%;border:1px dashed rgba(231,182,176,.14)}
+  .ring::after{inset:21%;border:1px solid rgba(231,182,176,.12)}
+  .rivers{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .rivers path{stroke-width:1.5;stroke-dasharray:1800;stroke-dashoffset:1800;animation:flow 2.8s var(--ease-ed) .6s forwards}
+  .rivers .rv-n{stroke:rgb(var(--rl));stroke-opacity:.7}
+  .rivers .rv-f{stroke:rgb(var(--rc));stroke-opacity:.7;animation-delay:.8s}
+  .rivers .rv-a{stroke:rgb(var(--rr));stroke-opacity:.7;animation-delay:1s}
+  @keyframes flow{to{stroke-dashoffset:0}}
+  h1.brand{font:400 clamp(52px,12vw,168px)/.9 var(--serif);letter-spacing:.14em;color:#FBE3DF;margin-right:-.14em;text-shadow:0 0 60px color-mix(in srgb,var(--rose) 35%,transparent)}
   h1.brand .mask:nth-child(1) > span{--d:.1s}
   h1.brand .mask:nth-child(2) > span{--d:.18s}
   h1.brand .mask:nth-child(3) > span{--d:.26s}
@@ -82,149 +128,151 @@
   h1.brand .mask:nth-child(5) > span{--d:.42s}
   h1.brand .mask:nth-child(6) > span{--d:.5s}
   h1.brand .mask:nth-child(7) > span{--d:.58s}
-  .manifesto{font:400 clamp(20px,2.6vw,30px)/1.35 var(--serif);font-style:italic;color:#E5B7B3;margin:34px auto 0;max-width:30ch;text-wrap:balance}
-  .anchor-line{margin:22px auto 0;max-width:46ch;color:var(--muted);font-size:15px;text-wrap:pretty}
+  .manifesto{font:italic 400 clamp(20px,2.6vw,30px)/1.35 var(--serif);color:#E9BDB8;margin:34px auto 0;max-width:30ch;text-wrap:balance}
   .cta{display:inline-flex;align-items:center;gap:12px;font:500 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--rose-light);padding:14px 0;border-bottom:1px solid var(--line-strong);transition:color .3s var(--ease-ui),border-color .3s var(--ease-ui),transform .2s var(--ease-ui)}
   .cta .arr{display:inline-block;transition:transform .3s var(--ease-ui)}
   .cta:active{transform:scale(0.97)}
   @media (hover:hover){.cta:hover{color:#fff;border-color:var(--rose-light)}.cta:hover .arr{transform:translateX(6px)}}
-  .cta.is-off{color:var(--muted);border-bottom-style:dashed;border-color:var(--line);cursor:default}
-  .hero .cta{margin-top:44px}
+  .hero .cta{margin-top:42px}
+  .cue{position:absolute;left:50%;bottom:clamp(14px,3vh,28px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font:400 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,236,220,.7)}
+  .cue i{display:block;width:1px;height:34px;background:linear-gradient(rgba(255,236,220,.8),transparent);transform-origin:top;animation:cue 2.6s var(--ease-ed) infinite}
+  @keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+  @media (max-height:560px){.cue{display:none}}
 
-  /* ---------- Secciones ---------- */
-  section{scroll-margin-top:80px}
-  .wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
-  .what{padding:clamp(24px,4vw,56px) 0 clamp(32px,5vw,72px)}
-  .what .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(40px,8vw,120px);align-items:start}
-  h2.title{font:400 clamp(34px,4.6vw,64px)/1.05 var(--serif);color:#F0CFCC;text-wrap:balance;margin-top:18px}
-  .what p{color:#C9B3B6;max-width:58ch;text-wrap:pretty}
-  .what p + p{margin-top:1.1em}
-  .principle{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);font:400 clamp(20px,2vw,26px)/1.35 var(--serif);font-style:italic;color:#E5B7B3;max-width:32ch}
-  .facts{margin-top:48px;border-top:1px solid var(--line)}
-  .fact{display:grid;grid-template-columns:5.5rem 1fr;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line)}
-  .fact .n{font:400 clamp(38px,4.4vw,56px)/1 var(--serif);color:var(--rose-light);font-variant-numeric:tabular-nums}
-  .fact .l{color:var(--muted);font-size:15px}
-
-  .projects-head{padding:clamp(24px,4vw,56px) 0 clamp(8px,2vw,24px)}
-  .projects-head .wrap{max-width:1320px}
-  .projects-head p{margin-top:18px;max-width:52ch;color:#C9B3B6}
-
-  .project{padding:clamp(24px,4vw,56px) 0}
-  .project .wrap{display:grid;gap:clamp(32px,6vw,96px);align-items:center}
-  .p-nalanda .wrap{grid-template-columns:minmax(0,58fr) minmax(0,42fr)}
-  .p-forja .wrap{grid-template-columns:minmax(0,42fr) minmax(0,58fr)}
-  .art{position:relative;aspect-ratio:3/2;overflow:hidden;border:1px solid var(--line);border-radius:2px;background:linear-gradient(150deg,#2A1320,#10090D)}
-  .art-par{position:absolute;inset:-8% 0}
-  .art svg{position:absolute;inset:0;width:100%;height:100%}
-  .tag{font:500 12px/1.6 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--rose)}
-  .p-copy h2{font:400 clamp(44px,6vw,88px)/.98 var(--serif);letter-spacing:.04em;color:#F1D4D0;margin:14px 0 20px}
-  .p-copy p{color:#C9B3B6;max-width:46ch;text-wrap:pretty}
-  .status{display:flex;align-items:center;gap:10px;margin:26px 0 8px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .status::before{content:"";width:22px;height:1px;background:var(--rose)}
-  .status.live{color:var(--rose-light)}
-  .meta{display:flex;gap:28px;flex-wrap:wrap;margin:6px 0 26px;font:400 13px/1.4 var(--mono);color:var(--muted)}
-  .meta b{font-weight:500;color:var(--rose-light);font-variant-numeric:tabular-nums}
-
-  .p-alma{position:relative;min-height:min(92dvh,820px);display:grid;align-items:end;margin-top:clamp(24px,4vw,56px);overflow:hidden;isolation:isolate}
-  .p-alma .art{position:absolute;inset:0;aspect-ratio:auto;border:0;border-radius:0;z-index:-1}
-  .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,9,13,.94) 6%,rgba(16,9,13,.25) 62%,rgba(16,9,13,.5))}
-  .p-alma .wrap{width:100%;padding-top:clamp(140px,20vw,260px);padding-bottom:clamp(48px,7vw,96px)}
-  .p-alma .p-copy{max-width:640px}
-
-  .contact{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px)}
-  .contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
-  .contact p{color:#C9B3B6;max-width:46ch;text-wrap:pretty;margin-top:18px}
-  .contact .links{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-
-  footer.foot{border-top:1px solid var(--line);padding:36px 0 44px}
-  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline;font:400 12px/1.7 var(--mono);letter-spacing:.1em;color:#9E7E86}
-  footer .wordmark{font-size:20px;color:var(--text)}
-  footer a{transition:color .25s var(--ease-ui)}
-  @media (hover:hover){footer a:hover{color:var(--rose-light)}}
-
-
-  /* ---------- Tres ríos: una tonalidad por proyecto ---------- */
-  :root{--gold:#E4B65F; --ember:#E8803F; --jade:#5DB5A4; --vermilion:#D9533A;
-    --w1:138,36,72; --w2:176,62,96; --w3:100,38,56; --w4:64,21,34; --rl:228,182,95; --rc:232,128,63; --rr:93,181,164; --gy1:86%; --gy3:86%; --gx1:14%; --gx3:86%}
+  /* Capitulo I: que es Triveni */
+  .what{padding:clamp(56px,8vw,120px) 0 clamp(72px,10vw,150px)}
+  .what .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(40px,8vw,120px);align-items:start}
+  h2.title{font:400 clamp(38px,5vw,72px)/1.02 var(--serif);color:#F4D9D4;text-wrap:balance;letter-spacing:.005em}
+  h2.title em{font-style:italic;color:rgb(var(--acc))}
+  .what p.body{color:#CDB7BA;max-width:56ch;text-wrap:pretty}
+  .what p.body + p.body{margin-top:1.1em}
+  .principle{margin-top:clamp(28px,4vw,44px);padding-left:22px;border-left:1px solid rgba(var(--acc),.7);font:italic 400 clamp(22px,2.2vw,30px)/1.3 var(--serif);color:#EBC3BE;max-width:28ch;text-wrap:balance}
+  .three{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);margin-top:clamp(56px,7vw,104px)}
+  .three li{position:relative;padding-top:30px}
+  .three li::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,var(--tone),color-mix(in srgb,var(--tone) 0%,transparent))}
+  .three li::after{content:"";position:absolute;left:0;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--tone);box-shadow:0 0 18px var(--tone)}
+  .three .v{font:500 11px/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--tone)}
+  .three h3{font:400 clamp(30px,3.2vw,44px)/1.05 var(--serif);color:#F4D9D4;margin:10px 0 12px;letter-spacing:.03em}
+  .three p{color:var(--muted);font-size:15px;max-width:30ch;text-wrap:pretty}
   .tone-n{--tone:var(--gold);--tone-2:var(--vermilion)}
   .tone-f{--tone:var(--ember);--tone-2:#FFB27A}
   .tone-a{--tone:var(--jade);--tone-2:#B8F0E0}
-  .hero{background:
-    radial-gradient(34vw 26vw at var(--gx1) var(--gy1),rgba(var(--rl),.20),transparent 70%),
-    radial-gradient(30vw 24vw at 50% 100%,rgba(var(--rc),.20),transparent 70%),
-    radial-gradient(34vw 26vw at var(--gx3) var(--gy3),rgba(var(--rr),.18),transparent 70%)}
-  .hero::before{background:radial-gradient(closest-side,rgba(var(--w1),.78),transparent)}
-  .hero::after{background:radial-gradient(closest-side,rgba(var(--w2),.45),transparent)}
-  .rivers{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-  .rivers path{stroke-width:1.6;stroke-dasharray:1800;stroke-dashoffset:1800;animation:flow 2.6s var(--ease-ed) .5s forwards}
-  .rivers .rv-n{stroke:rgb(var(--rl));stroke-opacity:.75}
-  .rivers .rv-f{stroke:rgb(var(--rc));stroke-opacity:.75;animation-delay:.7s}
-  .rivers .rv-a{stroke:rgb(var(--rr));stroke-opacity:.75;animation-delay:.9s}
-  @keyframes flow{to{stroke-dashoffset:0}}
-  .hero .eyebrow{color:#F6C9C1}
-  h1.brand{color:#FBE3DF;text-shadow:0 0 60px color-mix(in srgb,var(--rose) 35%,transparent)}
-  .what{background:linear-gradient(180deg,transparent,rgba(var(--w3),.42) 30%,rgba(var(--w3),.42) 70%,transparent)}
-  .what .eyebrow,.projects-head .eyebrow,.contact .eyebrow{color:#F0A3AE}
-  .rn{font-weight:500}
-  .n-n{color:var(--gold)}.n-f{color:var(--ember)}.n-a{color:var(--jade)}
-  .projects-head{background:linear-gradient(180deg,transparent,rgba(var(--w4),.5))}
-  .project{position:relative;isolation:isolate}
-  .p-nalanda{background:radial-gradient(60% 50% at 100% 50%,rgba(228,182,95,.15),transparent 70%),linear-gradient(180deg,rgba(var(--w4),.5),transparent 80%)}
-  .p-forja{background:radial-gradient(60% 50% at 0% 50%,rgba(232,128,63,.16),transparent 70%)}
-  .project .tag,.p-alma .tag{color:var(--tone)}
-  .project .tag::before,.p-alma .tag::before{content:"";display:block;width:48px;height:3px;background:var(--tone);margin-bottom:16px}
-  .project .status::before,.p-alma .status::before{background:var(--tone);height:2px}
-  .project .status.live,.p-alma .status.live{color:var(--tone-2)}
-  .project .meta b,.p-alma .meta b{color:var(--tone)}
-  .project .cta:not(.is-off),.p-alma .cta:not(.is-off){color:var(--tone);border-color:var(--tone)}
-  @media (hover:hover){.project .cta:not(.is-off):hover{color:#fff;border-color:var(--tone-2)}}
-  .project .art{border-color:color-mix(in srgb,var(--tone) 45%,transparent)}
-  .p-copy h2{text-shadow:0 0 48px color-mix(in srgb,var(--tone) 30%,transparent)}
-  .p-alma .p-copy h2{color:#E4FAF3}
-  .nav a::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:9px;vertical-align:1px;background:transparent;transition:background-color .25s var(--ease-ui)}
-  .nav a[href="#nalanda"]::before{background:var(--gold)}
-  .nav a[href="#forja"]::before{background:var(--ember)}
-  .nav a[href="#alma"]::before{background:var(--jade)}
-  .nav a.opt::before{display:none}
-  .contact{background:linear-gradient(0deg,rgba(var(--w3),.4),transparent 70%)}
-  footer.foot{position:relative;border-top:0}
-  footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgb(var(--rl)),rgb(var(--rc)) 50%,rgb(var(--rr)))}
 
+  /* ---------- Horizonte (transicion de seccion) ---------- */
+  .hz-gap{height:0;position:relative;pointer-events:none}
+  .hz-gap.static{overflow:hidden}
+  .hz-static{position:absolute;inset:0}
+  .hz-static canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hz-stage{position:fixed;inset:0;z-index:50;pointer-events:none;visibility:hidden}
+  .hz-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hz-label{position:absolute;left:0;right:0;top:50%;margin-top:-50px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;text-align:center;will-change:opacity,transform}
+  .hz-roman{font:italic 400 clamp(54px,7vw,92px)/1 var(--serif);background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding:0 .1em}
+  .hz-name{font:500 12px/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:rgba(244,231,229,.78);padding-left:.34em}
+  /* resplandor plano que queda sobre la seccion siguiente */
+  .s2::before,.s3::before{content:"";position:absolute;left:0;right:0;top:0;height:min(46vh,420px);pointer-events:none;z-index:0}
+  .s2::before{background:radial-gradient(70% 100% at 50% 0%,rgba(var(--sun1),.13),transparent 72%)}
+  .s3::before{background:radial-gradient(70% 100% at 50% 0%,rgba(var(--sun2),.13),transparent 72%)}
+  .sec > *{position:relative;z-index:1}
 
-  /* ---------- El Club ---------- */
-  .club{padding:clamp(56px,8vw,112px) 0 clamp(48px,7vw,96px);background:linear-gradient(0deg,rgba(var(--w3),.4),transparent 70%)}
-  .club .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
-  .club .eyebrow{color:#F0A3AE}
-  .club-epic{font:italic 400 clamp(24px,2.8vw,36px)/1.2 var(--serif);color:#F1D4D0;max-width:24ch;margin-top:26px;text-wrap:balance}
-  .club p:not(.eyebrow):not(.club-epic){color:#C9B3B6;max-width:52ch;text-wrap:pretty;margin-top:18px}
-  .club .cta{margin-top:30px}
+  /* ---------- Capitulo II: volumenes ---------- */
+  .vol-head{padding:clamp(72px,9vw,140px) 0 clamp(16px,3vw,40px)}
+  .vol-head p.lede{margin-top:22px;max-width:52ch;color:#CDB7BA;text-wrap:pretty}
+  .project{padding:clamp(40px,6vw,92px) 0;position:relative;isolation:isolate}
+  .project .wrap{display:grid;gap:clamp(32px,6vw,104px);align-items:center}
+  .p-nalanda .wrap{grid-template-columns:minmax(0,58fr) minmax(0,42fr)}
+  .p-forja .wrap{grid-template-columns:minmax(0,42fr) minmax(0,58fr)}
+  .p-nalanda{background:radial-gradient(60% 50% at 100% 50%,rgba(228,182,95,.11),transparent 70%)}
+  .p-forja{background:radial-gradient(60% 50% at 0% 50%,rgba(232,128,63,.12),transparent 70%)}
+  .plate{position:relative;margin:0;padding:0}
+  .plate::before{content:"";position:absolute;inset:-12px;border:1px solid color-mix(in srgb,var(--tone) 34%,transparent);pointer-events:none}
+  .plate::after{content:"";position:absolute;inset:-12px;pointer-events:none;
+    background:
+      linear-gradient(var(--tone),var(--tone)) 0 0/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 0 0/1px 14px no-repeat,
+      linear-gradient(var(--tone),var(--tone)) 100% 0/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 100% 0/1px 14px no-repeat,
+      linear-gradient(var(--tone),var(--tone)) 0 100%/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 0 100%/1px 14px no-repeat,
+      linear-gradient(var(--tone),var(--tone)) 100% 100%/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 100% 100%/1px 14px no-repeat}
+  .art{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:1px;background:linear-gradient(150deg,#2A1320,#10090D)}
+  .art-par{position:absolute;inset:-8% 0}
+  .art svg{position:absolute;inset:0;width:100%;height:100%}
+  .p-copy{position:relative}
+  .p-copy::before{content:attr(data-n);position:absolute;left:-.04em;bottom:calc(100% - .1em);z-index:-1;font:italic 400 clamp(130px,17vw,240px)/1 var(--serif);color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--tone) 17%,transparent);pointer-events:none;white-space:nowrap;transition:opacity 1.6s var(--ease-ed)}
+  .js .sec:not(.settled) .p-copy::before,.js .sec:not(.settled) .plate::before,.js .sec:not(.settled) .plate::after{opacity:0}
+  .plate::before,.plate::after{transition:opacity 1.6s var(--ease-ed) .3s}
+  .tag{font:500 12px/1.6 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--tone)}
+  .tag::before{content:"";display:block;width:48px;height:1px;background:var(--tone);margin-bottom:18px}
+  .p-copy h2{font:400 clamp(52px,7vw,104px)/.96 var(--serif);letter-spacing:.04em;color:#F7E1DC;margin:18px 0 34px}
+  .p-copy p.body{color:#CDB7BA;max-width:46ch;text-wrap:pretty}
+  .status{display:flex;align-items:center;gap:10px;margin:28px 0 8px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .status::before{content:"";width:22px;height:1px;background:var(--tone)}
+  .status.live{color:var(--tone-2)}
+  .meta{display:flex;gap:28px;flex-wrap:wrap;margin:6px 0 28px;font:400 13px/1.4 var(--mono);color:var(--muted)}
+  .meta b{font-weight:500;color:var(--tone);font-variant-numeric:tabular-nums}
+  .project .cta{color:var(--tone);border-color:var(--tone)}
+  @media (hover:hover){.project .cta:hover{color:#fff;border-color:var(--tone-2)}}
+
+  .p-alma{position:relative;min-height:min(94dvh,860px);display:grid;align-items:end;margin-top:clamp(24px,4vw,56px);overflow:hidden;isolation:isolate}
+  .p-alma .art{position:absolute;inset:0;aspect-ratio:auto;border:0;border-radius:0;z-index:-1}
+  .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,9,13,.94) 6%,rgba(16,9,13,.25) 62%,rgba(16,9,13,.5))}
+  .p-alma .wrap{width:100%;padding-top:clamp(140px,20vw,260px);padding-bottom:clamp(56px,8vw,110px)}
+  .p-alma .p-copy{max-width:660px}
+  .p-alma .p-copy h2{color:#E8FBF4}
+
+  /* ---------- Capitulo III: departamento ---------- */
+  .dept{padding:clamp(72px,9vw,140px) 0 clamp(64px,9vw,130px)}
+  .dept .cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
+  .club-epic{font:italic 400 clamp(26px,3vw,40px)/1.2 var(--serif);color:#F1D4D0;max-width:22ch;margin-top:26px;text-wrap:balance}
+  .dept p.body{color:#CDB7BA;max-width:52ch;text-wrap:pretty;margin-top:20px}
+  .dept .actions{display:flex;flex-wrap:wrap;gap:6px 36px;margin-top:30px}
   .figs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
-  .fig{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:22px 10px 20px;border:1px solid var(--line);border-radius:2px;background:rgba(24,13,19,.55)}
+  .fig{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:24px 10px 22px;border:1px solid var(--line);border-radius:1px;background:rgba(24,13,19,.5)}
   .fig .avatar{width:84px;height:84px;margin-bottom:10px;overflow:visible}
   .fig .ring-a{fill:color-mix(in srgb,var(--tone) 9%,transparent);stroke:var(--tone);stroke-width:1}
   .fig .glyph-a{fill:none;stroke:var(--tone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
   .fig strong{font:500 17px/1.2 var(--serif);color:var(--text);letter-spacing:.02em}
   .fig em{font-style:normal;font-size:13px;color:var(--muted);line-height:1.35}
   .fig .soc{margin-top:8px;font:400 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tone)}
-  @media (max-width:900px){.club .wrap{grid-template-columns:1fr}.figs{max-width:560px}}
-  @media (max-width:520px){.figs{grid-template-columns:1fr}.fig{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:16px;align-items:center;padding:16px}.fig .avatar{width:56px;height:56px;margin:0;grid-row:span 3}.fig strong,.fig em,.fig .soc{flex:1 1 calc(100% - 80px)}}
+  .ledger-wrap{margin-top:clamp(56px,7vw,108px)}
+  .ledger-wrap h3{font:500 12px/1.6 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:rgb(var(--acc));padding-bottom:16px;border-bottom:1px solid rgba(var(--acc),.5)}
+  .ledger{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ledger li{padding:clamp(22px,3vw,40px) clamp(10px,2vw,28px) clamp(22px,3vw,36px) 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+  .ledger li:not(:nth-child(3n+1)){padding-left:clamp(14px,2.4vw,34px);border-left:1px solid var(--line)}
+  .ledger .n{font:400 clamp(52px,6.4vw,96px)/1 var(--serif);font-variant-numeric:lining-nums tabular-nums;padding-right:.06em}
+  .ledger .l{color:var(--muted);font-size:14px;max-width:24ch;line-height:1.45}
+
+  footer.foot{position:relative;padding:36px 0 44px}
+  footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,rgb(var(--rl)),rgb(var(--rc)) 50%,rgb(var(--rr)))}
+  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline;font:400 12px/1.7 var(--mono);letter-spacing:.1em;color:#A5848C}
+  footer .wordmark{font-size:20px;color:var(--text)}
 
   /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .dept .cols{grid-template-columns:1fr}.figs{max-width:560px}
+  }
   @media (max-width:860px){
-    .what .wrap,.contact .wrap,.p-nalanda .wrap,.p-forja .wrap{grid-template-columns:1fr}
-    .p-forja .art{order:-1}
+    .what .cols,.p-nalanda .wrap,.p-forja .wrap{grid-template-columns:1fr}
+    .p-forja .plate{order:-1}
     .art{aspect-ratio:4/3}
     .topbar{height:60px}
     .nav a.opt{display:none}
-    .contact .wrap{align-items:start}
+    .plate::before,.plate::after{inset:-8px}
+    .three{grid-template-columns:1fr;gap:30px}
+    .three p{max-width:44ch}
+    .ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .ledger li:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+    .ledger li:nth-child(even){padding-left:clamp(14px,4vw,28px);border-left:1px solid var(--line)}
   }
   @media (max-width:520px){
     .nav{gap:14px}
     .nav a{font-size:11px;letter-spacing:.1em}
-    .fact{grid-template-columns:4.2rem 1fr}
+    .figs{grid-template-columns:1fr}
+    .fig{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:16px;align-items:center;padding:16px}
+    .fig .avatar{width:56px;height:56px;margin:0}
+    .fig strong,.fig em,.fig .soc{flex:1 1 calc(100% - 80px)}
+    .chap-head .name{letter-spacing:.16em}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    .rivers path{stroke-dashoffset:0}
   }
 </style>
 </head>
@@ -241,48 +289,72 @@
     <a class="opt" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram</a>
   </nav>
 </header>
+<nav class="chap" id="chap" aria-label="Capítulos">
+  <a href="#inicio" aria-label="I. Presentación">I</a>
+  <a href="#volumenes" aria-label="II. Los volúmenes">II</a>
+  <a href="#club" aria-label="III. El departamento">III</a>
+</nav>
 
 <div id="sentinel" aria-hidden="true" style="position:absolute;top:0;left:0;width:1px;height:80px;pointer-events:none"></div>
 
 <main id="contenido">
-  <section class="hero" id="inicio" aria-labelledby="brand-title">
-    <div class="ring" aria-hidden="true"></div>
-    <svg class="rivers" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="none" fill="none" stroke-linecap="round">
-      <path class="rv-n" d="M-40 80C60 420 260 800 720 868"/>
-      <path class="rv-f" d="M720 740V868"/>
-      <path class="rv-a" d="M1480 80C1380 420 1180 800 720 868"/>
-    </svg>
-    <h1 class="brand" id="brand-title" aria-label="Triveni">
-      <span class="mask" aria-hidden="true"><span>T</span></span><span class="mask" aria-hidden="true"><span>R</span></span><span class="mask" aria-hidden="true"><span>I</span></span><span class="mask" aria-hidden="true"><span>V</span></span><span class="mask" aria-hidden="true"><span>E</span></span><span class="mask" aria-hidden="true"><span>N</span></span><span class="mask" aria-hidden="true"><span>I</span></span>
-    </h1>
-    <p class="manifesto rv" style="--d:.5s">El pasado que inspira.<br>El conocimiento que trasciende.</p>
-    <a class="cta rv" style="--d:.7s" href="#proyectos">Ver los proyectos <span class="arr" aria-hidden="true">→</span></a>
-  </section>
 
-  <section class="what" id="triveni" aria-labelledby="what-title">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow rv">Qué es Triveni</p>
-        <h2 class="title rv" id="what-title" style="--d:.08s">Tres ríos que se unen en uno</h2>
-      </div>
-      <div>
-        <p class="rv">En la India, Triveni es el lugar donde confluyen tres ríos. Aquí nombra el punto de encuentro de tres proyectos del Club Kongzhi: <b class="rn n-n">Nalanda</b>, que narra la historia; <b class="rn n-f">Forja</b>, que investiga los conflictos que armaron la región; y <b class="rn n-a">Alma</b>, que busca el pensamiento detrás de ambos.</p>
-        <p class="rv" style="--d:.08s">Cada volumen tiene su propia voz y su propio diseño. Los une una misma convicción: entender Asia exige volver a sus fuentes, y el Perú universitario puede hacerlo con rigor.</p>
+  <!-- ============ I · Presentación ============ -->
+  <section class="sec s1 settled" id="presentacion" aria-label="Presentación de Triveni">
+    <div class="hero" id="inicio">
+      <div class="hz-host" id="heroHz" aria-hidden="true"></div>
+      <div class="ring" aria-hidden="true"></div>
+      <svg class="rivers" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="none" fill="none" stroke-linecap="round">
+        <path class="rv-n" d="M-40 80C60 420 260 790 720 858"/>
+        <path class="rv-f" d="M720 700V858"/>
+        <path class="rv-a" d="M1480 80C1380 420 1180 790 720 858"/>
+      </svg>
+      <h1 class="brand" id="brand-title" aria-label="Triveni">
+        <span class="mask" aria-hidden="true"><span>T</span></span><span class="mask" aria-hidden="true"><span>R</span></span><span class="mask" aria-hidden="true"><span>I</span></span><span class="mask" aria-hidden="true"><span>V</span></span><span class="mask" aria-hidden="true"><span>E</span></span><span class="mask" aria-hidden="true"><span>N</span></span><span class="mask" aria-hidden="true"><span>I</span></span>
+      </h1>
+      <p class="manifesto rv" style="--d:.5s">El pasado que inspira.<br>El conocimiento que trasciende.</p>
+      <a class="cta rv" style="--d:.7s" href="#triveni">Conocer Triveni <span class="arr" aria-hidden="true">→</span></a>
+      <a class="cue" href="#triveni" aria-label="Descender"><span>Descender</span><i aria-hidden="true"></i></a>
+    </div>
+
+    <div class="what" id="triveni">
+      <div class="wrap">
+        <div class="chap-head rv"><span class="roman foil" aria-hidden="true">I</span><span class="rule" aria-hidden="true"></span><span class="name">Presentación</span></div>
+        <div class="cols">
+          <div>
+            <p class="eyebrow rv">Qué es Triveni</p>
+            <h2 class="title rise" id="what-title" style="margin-top:18px"><span class="ri">Tres ríos que se unen en <em>uno</em></span></h2>
+            <p class="principle rv" style="--d:.1s">Entender Asia exige volver a sus fuentes.</p>
+          </div>
+          <div>
+            <p class="body rv">En la India, Triveni es el lugar donde confluyen tres ríos. Aquí nombra el punto de encuentro de tres proyectos del Club Kongzhi, cada uno con su propia voz y su propio diseño.</p>
+            <p class="body rv" style="--d:.08s">Los une una misma convicción: entender Asia exige volver a sus fuentes, y el Perú universitario puede hacerlo con rigor.</p>
+          </div>
+        </div>
+        <ol class="three" aria-label="Los tres volúmenes">
+          <li class="tone-n rv"><span class="v">Volumen I</span><h3>Nalanda</h3><p>Narra la historia, la política y la economía de China, Japón y Corea.</p></li>
+          <li class="tone-f rv" style="--d:.1s"><span class="v">Volumen II</span><h3>Forja</h3><p>Investiga los conflictos que armaron la región.</p></li>
+          <li class="tone-a rv" style="--d:.2s"><span class="v">Volumen III</span><h3>Alma</h3><p>Busca el pensamiento detrás de ambos.</p></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <section class="projects-head" id="proyectos" aria-labelledby="proj-title">
-    <div class="wrap">
-      <p class="eyebrow rv">Los proyectos</p>
-      <h2 class="title rv" id="proj-title" style="--d:.08s">Tres maneras de leer Asia</h2>
-      <p class="rv" style="--d:.12s">Cada proyecto tiene su propia voz y su propio diseño. Comparten una regla: toda afirmación remite a una fuente.</p>
-    </div>
-  </section>
+  <div class="hz-gap" data-next="volumenes" data-roman="II" data-title="Los volúmenes" data-round="1" data-reach="1" data-length="0.9" aria-hidden="true"></div>
 
-  <section class="project p-nalanda tone-n" id="nalanda" aria-labelledby="nalanda-title">
-    <div class="wrap">
-      <div class="art" aria-hidden="true">
+  <!-- ============ II · Los volúmenes ============ -->
+  <section class="sec s2" id="volumenes" aria-labelledby="vol-title">
+    <div class="vol-head" id="proyectos">
+      <div class="wrap">
+        <div class="chap-head rv"><span class="roman foil" aria-hidden="true">II</span><span class="rule" aria-hidden="true"></span><span class="name">Los volúmenes</span></div>
+        <h2 class="title rise" id="vol-title"><span class="ri">Tres maneras de leer <em>Asia</em></span></h2>
+        <p class="lede rv" style="--d:.12s">Cada proyecto tiene su propia voz y su propio diseño. Comparten una regla: toda afirmación remite a una fuente.</p>
+      </div>
+    </div>
+
+    <article class="project p-nalanda tone-n" id="nalanda" aria-labelledby="nalanda-title">
+      <div class="wrap">
+        <figure class="plate"><div class="art" aria-hidden="true">
         <div class="art-par">
           <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" fill="none" stroke="url(#gN)" stroke-width="1.2">
             <defs><linearGradient id="gN" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D08A"/><stop offset="1" stop-color="#D9533A"/></linearGradient>
@@ -296,29 +368,29 @@
             <path d="M300 30v-12M300 122v-30" stroke-opacity=".35"/>
           </svg>
         </div>
+      </div></figure>
+        <div class="p-copy" data-n="I">
+          <p class="tag rv">Volumen I / Biblioteca</p>
+          <h2 id="nalanda-title" class="rise" style="--d:.06s"><span class="ri">Nalanda</span></h2>
+          <p class="body rv" style="--d:.12s">Cuadernos narrativos sobre la historia, la política y la economía de China, Japón y Corea. Cada uno avanza en cinco actos, con glosario, fuentes y las cifras que explican cada pasaje.</p>
+          <p class="status live rv" style="--d:.16s">En línea</p>
+          <p class="meta rv" style="--d:.18s"><span><b>47</b> cuadernos</span><span><b>3</b> países</span></p>
+          <a class="cta rv" style="--d:.22s" href="https://renzo34990.github.io/gengis-biblioteca/index.html?desde=triveni">Entrar a la biblioteca <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </div>
-      <div class="p-copy">
-        <p class="tag rv">Volumen I / Biblioteca</p>
-        <h2 id="nalanda-title" class="rv" style="--d:.06s">Nalanda</h2>
-        <p class="rv" style="--d:.12s">Cuadernos narrativos sobre la historia, la política y la economía de China, Japón y Corea. Cada uno avanza en cinco actos, con glosario, fuentes y las cifras que explican cada pasaje.</p>
-        <p class="status live rv" style="--d:.16s">En línea</p>
-        <p class="meta rv" style="--d:.18s"><span><b>47</b> cuadernos</span><span><b>3</b> países</span></p>
-        <a class="cta rv" style="--d:.22s" href="https://renzo34990.github.io/gengis-biblioteca/index.html?desde=triveni">Entrar a la biblioteca <span class="arr" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
+    </article>
 
-  <section class="project p-forja tone-f" id="forja" aria-labelledby="forja-title">
-    <div class="wrap">
-      <div class="p-copy">
-        <p class="tag rv">Volumen II / Historia</p>
-        <h2 id="forja-title" class="rv" style="--d:.06s">Forja</h2>
-        <p class="rv" style="--d:.12s">Las guerras que formaron Asia. Quince conflictos en cinco actos que armaron fronteras, economías y Estados. Cada guerra se investiga primero en sus fuentes y se narra después, con su eco en el Perú.</p>
-        <p class="status rv" style="--d:.16s">En investigación</p>
-        <p class="meta rv" style="--d:.18s"><span><b>15</b> guerras</span><span><b>5</b> actos</span></p>
-        <a class="cta rv" style="--d:.22s" href="https://renzo34990.github.io/forja-guerra/">Ver el prototipo <span class="arr" aria-hidden="true">→</span></a>
-      </div>
-      <div class="art" aria-hidden="true">
+    <article class="project p-forja tone-f" id="forja" aria-labelledby="forja-title">
+      <div class="wrap">
+        <div class="p-copy" data-n="II">
+          <p class="tag rv">Volumen II / Historia</p>
+          <h2 id="forja-title" class="rise" style="--d:.06s"><span class="ri">Forja</span></h2>
+          <p class="body rv" style="--d:.12s">Las guerras que formaron Asia. Quince conflictos en cinco actos que armaron fronteras, economías y Estados. Cada guerra se investiga primero en sus fuentes y se narra después, con su eco en el Perú.</p>
+          <p class="status rv" style="--d:.16s">En investigación</p>
+          <p class="meta rv" style="--d:.18s"><span><b>15</b> guerras</span><span><b>5</b> actos</span></p>
+          <a class="cta rv" style="--d:.22s" href="https://renzo34990.github.io/forja-guerra/">Ver el prototipo <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <figure class="plate"><div class="art" aria-hidden="true">
         <div class="art-par">
           <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" fill="none" stroke="url(#gG)" stroke-width="1.2">
             <defs><linearGradient id="gG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB27A"/><stop offset="1" stop-color="#E0793C"/></linearGradient>
@@ -330,12 +402,12 @@
             <path d="M0 330h600" stroke-opacity=".7"/>
           </svg>
         </div>
+      </div></figure>
       </div>
-    </div>
-  </section>
+    </article>
 
-  <section class="p-alma tone-a" id="alma" aria-labelledby="alma-title">
-    <div class="art" aria-hidden="true">
+    <article class="p-alma tone-a" id="alma" aria-labelledby="alma-title">
+      <div class="art" aria-hidden="true">
       <div class="art-par">
         <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" stroke="url(#gA)" stroke-width="1.2">
           <defs><linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8F0E0"/><stop offset="1" stop-color="#4FA898"/></linearGradient>
@@ -348,32 +420,56 @@
         </svg>
       </div>
     </div>
-    <div class="wrap">
-      <div class="p-copy">
-        <p class="tag rv">Volumen III / Pensamiento</p>
-        <h2 id="alma-title" class="rv" style="--d:.06s">Alma</h2>
-        <p class="rv" style="--d:.12s">El alma de Asia: la filosofía, la religión y la tradición cultural detrás de China, Japón y Corea. Quince cuadernos en cinco actos, ordenados por idea y no por país, para entender por qué estas sociedades deciden como deciden.</p>
-        <p class="status rv" style="--d:.16s">En desarrollo</p>
-        <p class="meta rv" style="--d:.18s"><span><b>15</b> cuadernos</span><span><b>5</b> actos</span><span><b>4</b> corrientes</span></p>
-        <a class="cta rv" style="--d:.2s" href="https://renzo34990.github.io/alma-asia/">Ver el prototipo <span class="arr" aria-hidden="true">→</span></a>
+      <div class="wrap">
+        <div class="p-copy" data-n="III">
+          <p class="tag rv">Volumen III / Pensamiento</p>
+          <h2 id="alma-title" class="rise" style="--d:.06s"><span class="ri">Alma</span></h2>
+          <p class="body rv" style="--d:.12s">El alma de Asia: la filosofía, la religión y la tradición cultural detrás de China, Japón y Corea. Quince cuadernos en cinco actos, ordenados por idea y no por país, para entender por qué estas sociedades deciden como deciden.</p>
+          <p class="status rv" style="--d:.16s">En desarrollo</p>
+          <p class="meta rv" style="--d:.18s"><span><b>15</b> cuadernos</span><span><b>5</b> actos</span><span><b>4</b> corrientes</span></p>
+          <a class="cta rv" style="--d:.2s" href="https://renzo34990.github.io/alma-asia/">Ver el prototipo <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </div>
-    </div>
+    </article>
   </section>
 
-  <section class="club" id="club" aria-labelledby="club-title">
-    <div class="wrap">
-      <div class="club-copy">
-        <p class="eyebrow rv">Club Kongzhi UNMSM</p>
-        <h2 class="title rv" id="club-title" style="--d:.08s">El Club</h2>
-        <p class="club-epic rv" style="--d:.14s">Somos el puente entre Asia y el mundo universitario peruano.</p>
-        <p class="rv" style="--d:.2s">Donde otros ven un continente lejano, Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
-        <a class="cta rv" style="--d:.26s" href="departamento/">Departamento de Investigación <span class="arr" aria-hidden="true">→</span></a>
+  <div class="hz-gap" data-next="club" data-roman="III" data-title="El departamento" data-round="1.1" data-reach="1" data-length="0.9" aria-hidden="true"></div>
+
+  <!-- ============ III · El departamento ============ -->
+  <section class="sec s3" id="club" aria-labelledby="club-title">
+    <div class="dept">
+      <div class="wrap">
+        <div class="chap-head rv"><span class="roman foil" aria-hidden="true">III</span><span class="rule" aria-hidden="true"></span><span class="name">El departamento</span></div>
+        <div class="cols">
+          <div>
+            <p class="eyebrow rv">Club Kongzhi UNMSM</p>
+            <h2 class="title rise" id="club-title" style="margin-top:18px"><span class="ri">El <em>Club</em></span></h2>
+            <p class="club-epic rv" style="--d:.14s">Somos el puente entre Asia y el mundo universitario peruano.</p>
+            <p class="body rv" style="--d:.2s">Donde otros ven un continente lejano, Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
+            <div class="actions">
+              <a class="cta rv" style="--d:.26s" href="departamento/">Departamento de Investigación <span class="arr" aria-hidden="true">→</span></a>
+              <a class="cta rv" style="--d:.3s" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <ul class="figs" aria-label="Principales contribuyentes">
+            <li class="fig tone-n rv" style="--d:0.0s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><circle cx="47" cy="43" r="5.5"/><path d="M51 47l6 6"/></g></svg><strong>Renzo</strong><em>Director de Investigación</em><span class="soc">LinkedIn · por añadir</span></li>
+            <li class="fig tone-f rv" style="--d:0.1s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+            <li class="fig tone-a rv" style="--d:0.2s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+          </ul>
+        </div>
+
+        <div class="ledger-wrap">
+          <h3 class="rv">Datos del departamento</h3>
+          <ul class="ledger">
+            <li class="rv"><span class="n foil" data-count="5">5</span><span class="l">investigadores en el departamento</span></li>
+            <li class="rv" style="--d:.07s"><span class="n foil" data-count="3">3</span><span class="l">volúmenes en curso: Nalanda, Forja y Alma</span></li>
+            <li class="rv" style="--d:.14s"><span class="n foil" data-count="3">3</span><span class="l">países que estudiamos: China, Japón y Corea</span></li>
+            <li class="rv" style="--d:.07s"><span class="n foil" data-count="47">47</span><span class="l">cuadernos publicados en Nalanda</span></li>
+            <li class="rv" style="--d:.14s"><span class="n foil" data-count="15">15</span><span class="l">guerras que investiga Forja</span></li>
+            <li class="rv" style="--d:.21s"><span class="n foil" data-count="15">15</span><span class="l">cuadernos proyectados en Alma</span></li>
+          </ul>
+        </div>
       </div>
-      <ul class="figs" aria-label="Principales contribuyentes">
-      <li class="fig tone-n rv" style="--d:0.0s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><circle cx="47" cy="43" r="5.5"/><path d="M51 47l6 6"/></g></svg><strong>Renzo</strong><em>Director de Investigación</em><span class="soc">LinkedIn · por añadir</span></li>
-      <li class="fig tone-f rv" style="--d:0.1s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
-      <li class="fig tone-a rv" style="--d:0.2s"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
-      </ul>
     </div>
   </section>
 </main>
@@ -389,6 +485,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+<script src="assets/horizon.js"></script>
 <script>
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -400,17 +497,43 @@
     new IntersectionObserver(function(e){ bar.classList.toggle('solid', !e[0].isIntersecting); }).observe(sentinel);
   } else { bar.classList.add('solid'); }
 
-  // Revelados
-  var targets = document.querySelectorAll('.rv, .art, h1.brand');
+  // Titulares: se envuelven para subir desde una mascara
+  document.querySelectorAll('.rise').forEach(function(h){ if(!h.querySelector('.ri')) h.innerHTML = '<span class="ri">' + h.innerHTML + '</span>'; });
+
+  // Cifras que se cuentan al aparecer
+  function count(el){
+    var to = parseInt(el.getAttribute('data-count'), 10); if(isNaN(to) || reduceMotion){ return; }
+    var t0 = null, dur = 1400;
+    el.textContent = '0';
+    function step(ts){ if(t0 === null) t0 = ts; var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(to * e); if(k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+
+  // Revelados. Dentro de una seccion con transicion, nada aparece hasta que se asiente.
+  var targets = document.querySelectorAll('.rv, .rise, .art, h1.brand');
+  function show(t){ (t._rv || t).classList.add('in'); var c = t.querySelector && t.querySelector('[data-count]'); if(c) count(c); else if(t.hasAttribute && t.hasAttribute('data-count')) count(t); }
   if(reduceMotion || !('IntersectionObserver' in window)){
     targets.forEach(function(t){ t.classList.add('in'); });
   } else {
+    var pending = [];
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){ (en.target._rv || en.target).classList.add('in'); io.unobserve(en.target); } });
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var sec = en.target.closest('.sec');
+        io.unobserve(en.target);
+        if(sec && !sec.classList.contains('settled')) pending.push({ t: en.target, sec: sec });
+        else show(en.target);
+      });
     }, { threshold: .15, rootMargin: '0px 0px -6% 0px' });
     targets.forEach(function(t){
       // el clip-path del propio elemento anula la interseccion: se observa su contenedor
       if(t.classList.contains('art')){ var host = t.parentNode; host._rv = t; io.observe(host); } else io.observe(t);
+    });
+    document.addEventListener('hz:settled', function(ev){
+      var sec = ev.detail, rest = [];
+      pending.forEach(function(p){ if(p.sec === sec) show(p.t); else rest.push(p); });
+      pending = rest;
     });
   }
 
@@ -422,6 +545,16 @@
       es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){ a.removeAttribute('aria-current'); }); var a = map[e.target.id]; if(a) a.setAttribute('aria-current','true'); } });
     }, { rootMargin: '-45% 0px -50% 0px' });
     Object.keys(map).forEach(function(id){ var s = document.getElementById(id); if(s) so.observe(s); });
+
+    // Índice de capítulos I, II, III
+    var ch = document.querySelectorAll('.chap a'), cmap = {};
+    ch.forEach(function(a){ cmap[a.getAttribute('href').slice(1)] = a; });
+    var co = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ ch.forEach(function(a){ a.removeAttribute('aria-current'); }); var a = cmap[e.target.getAttribute('data-ch')]; if(a) a.setAttribute('aria-current','true'); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    [['inicio','inicio'],['triveni','inicio'],['volumenes','volumenes'],['club','club']].forEach(function(p){
+      var s = document.getElementById(p[0]); if(s){ s.setAttribute('data-ch', p[1]); co.observe(s); }
+    });
   }
 
   // Scroll suave y paralaje sutil (mismo stack que Nalanda)
@@ -441,10 +574,13 @@
       var id = a.getAttribute('href').slice(1), t = id ? document.getElementById(id) : null;
       if(!t) return;
       ev.preventDefault();
-      if(lenis) lenis.scrollTo(t, { offset: id === 'inicio' ? 0 : -68, duration: 1.2 }); else t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      var off = id === 'inicio' ? 0 : (id === 'volumenes' || id === 'club') ? 0 : -68;
+      if(lenis) lenis.scrollTo(t, { offset: off, duration: 1.4 }); else t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
       history.replaceState(null, '', '#' + id);
     });
   });
+
+  if(window.Horizon) window.Horizon.init();
 })();
 </script>
 </body>
