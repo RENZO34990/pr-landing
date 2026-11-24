@@ -25,8 +25,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
-    --ink:#10090D; --ink-2:#180D13; --wine:#401522; --wine-2:#642638;
-    --rose:#B95F76; --rose-light:#E7B6B0; --text:#F4E7E5; --muted:#B99DA2;
+    --bg:16,9,13; --fg:244,217,212; --bd:205,183,186; --mu:185,157,162; --ink:rgb(var(--bg)); --ink-2:#180D13; --wine:#401522; --wine-2:#642638;
+    --rose:#B95F76; --rose-light:#E7B6B0; --text:rgb(var(--fg)); --title:rgb(var(--fg)); --copy:rgb(var(--bd)); --muted:rgb(var(--mu));
     --line:rgba(231,182,176,.2); --line-strong:rgba(231,182,176,.5);
     --serif:'Cormorant Garamond',Georgia,serif; --sans:'DM Sans',Arial,sans-serif; --mono:'IBM Plex Mono',monospace;
     --ease-ui:cubic-bezier(0.16,1,0.3,1); --ease-ed:cubic-bezier(0.22,1,0.36,1);
@@ -51,8 +51,8 @@
   .wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
 
   /* ---------- Cabecera ---------- */
-  .topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 var(--gutter);background:rgba(16,9,13,0);border-bottom:1px solid transparent;transition:background-color .45s var(--ease-ed),border-color .45s var(--ease-ed)}
-  .topbar.solid{background:rgba(16,9,13,.9);border-bottom-color:var(--line)}
+  .topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 var(--gutter);background:rgba(var(--bg),0);border-bottom:1px solid transparent;transition:background-color .45s var(--ease-ed),border-color .45s var(--ease-ed)}
+  .topbar.solid{background:rgba(var(--bg),.9);border-bottom-color:var(--line)}
   .wordmark{font:500 24px/1 var(--serif);letter-spacing:.14em}
   .wordmark span{color:var(--rose)}
   .nav{display:flex;align-items:center;gap:clamp(16px,2.6vw,36px)}
@@ -109,6 +109,8 @@
   .hero::before{content:"";position:absolute;width:70vw;height:55vw;right:-22vw;top:-22vw;background:radial-gradient(closest-side,rgba(var(--w1),.7),transparent);z-index:-2}
   .hero::after{content:"";position:absolute;width:55vw;height:45vw;left:-24vw;top:-14vw;background:radial-gradient(closest-side,rgba(var(--w2),.3),transparent);z-index:-2}
   .hz-host{position:absolute;inset:0;z-index:-1;pointer-events:none}
+  /* grano a resolución completa sobre el resplandor: rompe el bandeo del degradado */
+  .hz-host::after,.hz-stage::after,.hz-static::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
   .hz-host canvas,.hz-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   .ring{position:absolute;left:50%;top:44%;width:min(62vw,560px);aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid rgba(231,182,176,.12);border-radius:50%;z-index:-1}
   .ring::before,.ring::after{content:"";position:absolute;border-radius:50%}
@@ -142,17 +144,17 @@
   /* Capitulo I: que es Triveni */
   .what{padding:clamp(56px,8vw,120px) 0 clamp(72px,10vw,150px)}
   .what .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(40px,8vw,120px);align-items:start}
-  h2.title{font:400 clamp(38px,5vw,72px)/1.02 var(--serif);color:#F4D9D4;text-wrap:balance;letter-spacing:.005em}
+  h2.title{font:400 clamp(38px,5vw,72px)/1.02 var(--serif);color:var(--title);text-wrap:balance;letter-spacing:.005em}
   h2.title em{font-style:italic;color:rgb(var(--acc))}
-  .what p.body{color:#CDB7BA;max-width:56ch;text-wrap:pretty}
+  .what p.body{color:var(--copy);max-width:56ch;text-wrap:pretty}
   .what p.body + p.body{margin-top:1.1em}
-  .principle{margin-top:clamp(28px,4vw,44px);padding-left:22px;border-left:1px solid rgba(var(--acc),.7);font:italic 400 clamp(22px,2.2vw,30px)/1.3 var(--serif);color:#EBC3BE;max-width:28ch;text-wrap:balance}
+  .principle{margin-top:clamp(28px,4vw,44px);padding-left:22px;border-left:1px solid rgba(var(--acc),.7);font:italic 400 clamp(22px,2.2vw,30px)/1.3 var(--serif);color:var(--title);max-width:28ch;text-wrap:balance}
   .three{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);margin-top:clamp(56px,7vw,104px)}
   .three li{position:relative;padding-top:30px}
   .three li::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,var(--tone),color-mix(in srgb,var(--tone) 0%,transparent))}
   .three li::after{content:"";position:absolute;left:0;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--tone);box-shadow:0 0 18px var(--tone)}
   .three .v{font:500 11px/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--tone)}
-  .three h3{font:400 clamp(30px,3.2vw,44px)/1.05 var(--serif);color:#F4D9D4;margin:10px 0 12px;letter-spacing:.03em}
+  .three h3{font:400 clamp(30px,3.2vw,44px)/1.05 var(--serif);color:var(--title);margin:10px 0 12px;letter-spacing:.03em}
   .three p{color:var(--muted);font-size:15px;max-width:30ch;text-wrap:pretty}
   .tone-n{--tone:var(--gold);--tone-2:var(--vermilion)}
   .tone-f{--tone:var(--ember);--tone-2:#FFB27A}
@@ -176,7 +178,7 @@
 
   /* ---------- Capitulo II: volumenes ---------- */
   .vol-head{padding:clamp(72px,9vw,140px) 0 clamp(16px,3vw,40px)}
-  .vol-head p.lede{margin-top:22px;max-width:52ch;color:#CDB7BA;text-wrap:pretty}
+  .vol-head p.lede{margin-top:22px;max-width:52ch;color:var(--copy);text-wrap:pretty}
   .project{padding:clamp(40px,6vw,92px) 0;position:relative;isolation:isolate}
   .project .wrap{display:grid;gap:clamp(32px,6vw,104px);align-items:center}
   .p-nalanda .wrap{grid-template-columns:minmax(0,58fr) minmax(0,42fr)}
@@ -191,7 +193,7 @@
       linear-gradient(var(--tone),var(--tone)) 100% 0/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 100% 0/1px 14px no-repeat,
       linear-gradient(var(--tone),var(--tone)) 0 100%/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 0 100%/1px 14px no-repeat,
       linear-gradient(var(--tone),var(--tone)) 100% 100%/14px 1px no-repeat,linear-gradient(var(--tone),var(--tone)) 100% 100%/1px 14px no-repeat}
-  .art{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:1px;background:linear-gradient(150deg,#2A1320,#10090D)}
+  .art{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:1px;background:linear-gradient(150deg,color-mix(in srgb,rgb(var(--w4)) 80%,rgb(var(--bg))),var(--ink))}
   .art-par{position:absolute;inset:-8% 0}
   .art svg{position:absolute;inset:0;width:100%;height:100%}
   .p-copy{position:relative}
@@ -200,8 +202,8 @@
   .plate::before,.plate::after{transition:opacity 1.6s var(--ease-ed) .3s}
   .tag{font:500 12px/1.6 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--tone)}
   .tag::before{content:"";display:block;width:48px;height:1px;background:var(--tone);margin-bottom:18px}
-  .p-copy h2{font:400 clamp(52px,7vw,104px)/.96 var(--serif);letter-spacing:.04em;color:#F7E1DC;margin:18px 0 34px}
-  .p-copy p.body{color:#CDB7BA;max-width:46ch;text-wrap:pretty}
+  .p-copy h2{font:400 clamp(52px,7vw,104px)/.96 var(--serif);letter-spacing:.04em;color:var(--title);margin:18px 0 34px}
+  .p-copy p.body{color:var(--copy);max-width:46ch;text-wrap:pretty}
   .status{display:flex;align-items:center;gap:10px;margin:28px 0 8px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   .status::before{content:"";width:22px;height:1px;background:var(--tone)}
   .status.live{color:var(--tone-2)}
@@ -212,16 +214,16 @@
 
   .p-alma{position:relative;min-height:min(94dvh,860px);display:grid;align-items:end;margin-top:clamp(24px,4vw,56px);overflow:hidden;isolation:isolate}
   .p-alma .art{position:absolute;inset:0;aspect-ratio:auto;border:0;border-radius:0;z-index:-1}
-  .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,9,13,.94) 6%,rgba(16,9,13,.25) 62%,rgba(16,9,13,.5))}
+  .p-alma .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(var(--bg),.94) 6%,rgba(var(--bg),.25) 62%,rgba(var(--bg),.5))}
   .p-alma .wrap{width:100%;padding-top:clamp(140px,20vw,260px);padding-bottom:clamp(56px,8vw,110px)}
   .p-alma .p-copy{max-width:660px}
-  .p-alma .p-copy h2{color:#E8FBF4}
+  .p-alma .p-copy h2{color:var(--title)}
 
   /* ---------- Capitulo III: departamento ---------- */
   .dept{padding:clamp(72px,9vw,140px) 0 clamp(64px,9vw,130px)}
   .dept .cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
-  .club-epic{font:italic 400 clamp(26px,3vw,40px)/1.2 var(--serif);color:#F1D4D0;max-width:22ch;margin-top:26px;text-wrap:balance}
-  .dept p.body{color:#CDB7BA;max-width:52ch;text-wrap:pretty;margin-top:20px}
+  .club-epic{font:italic 400 clamp(26px,3vw,40px)/1.2 var(--serif);color:var(--title);max-width:22ch;margin-top:26px;text-wrap:balance}
+  .dept p.body{color:var(--copy);max-width:52ch;text-wrap:pretty;margin-top:20px}
   .dept .actions{display:flex;flex-wrap:wrap;gap:6px 36px;margin-top:30px}
   .figs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
   .fig{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:24px 10px 22px;border:1px solid var(--line);border-radius:1px;background:rgba(24,13,19,.5)}
@@ -241,7 +243,7 @@
 
   footer.foot{position:relative;padding:36px 0 44px}
   footer.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,rgb(var(--rl)),rgb(var(--rc)) 50%,rgb(var(--rr)))}
-  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline;font:400 12px/1.7 var(--mono);letter-spacing:.1em;color:#A5848C}
+  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline;font:400 12px/1.7 var(--mono);letter-spacing:.1em;color:var(--muted)}
   footer .wordmark{font-size:20px;color:var(--text)}
 
   /* ---------- Responsive ---------- */
@@ -300,7 +302,7 @@
 <main id="contenido">
 
   <!-- ============ I · Presentación ============ -->
-  <section class="sec s1 settled" id="presentacion" aria-label="Presentación de Triveni">
+  <section class="sec s1 settled" id="presentacion" data-bg="16 9 13" data-fg="244 217 212" data-body="205 183 186" data-muted="185 157 162" aria-label="Presentación de Triveni">
     <div class="hero" id="inicio">
       <div class="hz-host" id="heroHz" aria-hidden="true"></div>
       <div class="ring" aria-hidden="true"></div>
@@ -344,7 +346,7 @@
 
   <!-- ============ II · Los volúmenes ============ -->
   <section class="sec s2" id="volumenes" aria-labelledby="vol-title">
-    <div class="vol-head" id="proyectos">
+    <div class="vol-head" id="proyectos" data-bg="23 16 9" data-fg="247 232 204" data-body="214 198 166" data-muted="178 160 128" data-at="1.05" data-span=".3">
       <div class="wrap">
         <div class="chap-head rv"><span class="roman foil" aria-hidden="true">II</span><span class="rule" aria-hidden="true"></span><span class="name">Los volúmenes</span></div>
         <h2 class="title rise" id="vol-title"><span class="ri">Tres maneras de leer <em>Asia</em></span></h2>
@@ -380,7 +382,7 @@
       </div>
     </article>
 
-    <article class="project p-forja tone-f" id="forja" aria-labelledby="forja-title">
+    <article class="project p-forja tone-f" id="forja" data-bg="28 10 9" data-fg="250 226 210" data-body="224 192 174" data-muted="192 154 136" data-at=".55" data-span=".7" aria-labelledby="forja-title">
       <div class="wrap">
         <div class="p-copy" data-n="II">
           <p class="tag rv">Volumen II / Historia</p>
@@ -406,7 +408,7 @@
       </div>
     </article>
 
-    <article class="p-alma tone-a" id="alma" aria-labelledby="alma-title">
+    <article class="p-alma tone-a" id="alma" data-bg="8 21 21" data-fg="226 247 239" data-body="178 208 200" data-muted="140 176 168" data-at=".55" data-span=".6" aria-labelledby="alma-title">
       <div class="art" aria-hidden="true">
       <div class="art-par">
         <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" stroke="url(#gA)" stroke-width="1.2">
@@ -436,7 +438,7 @@
   <div class="hz-gap" data-next="club" data-roman="III" data-title="El departamento" data-round="1.1" data-reach="1" data-length="0.9" aria-hidden="true"></div>
 
   <!-- ============ III · El departamento ============ -->
-  <section class="sec s3" id="club" aria-labelledby="club-title">
+  <section class="sec s3" id="club" data-bg="22 11 24" data-fg="246 222 226" data-body="210 188 198" data-muted="182 158 172" data-at="1.05" data-span=".3" aria-labelledby="club-title">
     <div class="dept">
       <div class="wrap">
         <div class="chap-head rv"><span class="roman foil" aria-hidden="true">III</span><span class="rule" aria-hidden="true"></span><span class="name">El departamento</span></div>
@@ -486,6 +488,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
 <script src="assets/horizon.js"></script>
+<script src="assets/blend.js"></script>
 <script>
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -581,6 +584,7 @@
   });
 
   if(window.Horizon) window.Horizon.init();
+  if(window.PaletteBlend) window.PaletteBlend.init();
 })();
 </script>
 </body>
