@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/fonts/dm-sans.css">
 <link rel="stylesheet" href="assets/fonts/ibm-plex-mono.css">
 <script src="assets/palette.js"></script>
+<script src="assets/transiciones.js" data-ink="#10090D"></script>
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
@@ -149,13 +150,23 @@
   .what p.body{color:var(--copy);max-width:56ch;text-wrap:pretty}
   .what p.body + p.body{margin-top:1.1em}
   .principle{margin-top:clamp(28px,4vw,44px);padding-left:22px;border-left:1px solid rgba(var(--acc),.7);font:italic 400 clamp(22px,2.2vw,30px)/1.3 var(--serif);color:var(--title);max-width:28ch;text-wrap:balance}
-  .three{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);margin-top:clamp(56px,7vw,104px)}
-  .three li{position:relative;padding-top:30px}
-  .three li::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,var(--tone),color-mix(in srgb,var(--tone) 0%,transparent))}
-  .three li::after{content:"";position:absolute;left:0;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--tone);box-shadow:0 0 18px var(--tone)}
-  .three .v{font:500 11px/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--tone)}
-  .three h3{font:400 clamp(30px,3.2vw,44px)/1.05 var(--serif);color:var(--title);margin:10px 0 12px;letter-spacing:.03em}
-  .three p{color:var(--muted);font-size:15px;max-width:30ch;text-wrap:pretty}
+
+  /* Paneles líquidos: un solo contorno redibujado en cada frame (assets/goo.js) */
+  .goo{position:relative;margin-top:clamp(56px,7vw,104px);--goo-gap:clamp(52px,6.4vw,92px)}
+  .goo-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(0 22px 40px rgba(0,0,0,.38))}
+  .goo-fill{fill:rgba(255,236,230,.05);stroke:none}
+  .goo-edge{fill:none;stroke:url(#gooEdge);stroke-width:1.1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+  .goo-panels{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--goo-gap);position:relative}
+  .gp{position:relative;padding:clamp(28px,3.2vw,44px) clamp(24px,2.8vw,40px) clamp(30px,3.4vw,46px);min-height:236px;display:flex;flex-direction:column;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y;will-change:transform}
+  .gp.grab{cursor:grabbing}
+  .gp::before{content:"";position:absolute;left:clamp(24px,2.8vw,40px);top:clamp(14px,1.6vw,20px);width:7px;height:7px;border-radius:50%;background:var(--tone);box-shadow:0 0 16px var(--tone)}
+  .gp .v{font:500 11px/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--tone);margin-top:6px}
+  .gp h3{font:400 clamp(32px,3.4vw,48px)/1.05 var(--serif);color:var(--title);margin:12px 0 12px;letter-spacing:.03em}
+  .gp h3 a{color:inherit;cursor:inherit}
+  .gp h3 a::after{content:"";position:absolute;inset:0;border-radius:26px}
+  .gp p{color:var(--muted);font-size:15px;max-width:30ch;text-wrap:pretty}
+  .gp .go{margin-top:auto;padding-top:22px;font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--tone);display:flex;gap:10px;align-items:center;transition:gap .35s var(--ease-ui)}
+  .gp:hover .go,.gp:focus-within .go{gap:18px}
   .tone-n{--tone:var(--gold);--tone-2:var(--vermilion)}
   .tone-f{--tone:var(--ember);--tone-2:#FFB27A}
   .tone-a{--tone:var(--jade);--tone-2:#B8F0E0}
@@ -252,14 +263,14 @@
   }
   @media (max-width:860px){
     .what .cols,.p-nalanda .wrap,.p-forja .wrap{grid-template-columns:1fr}
+    .goo-panels{grid-template-columns:1fr;--goo-gap:44px}
+    .gp{min-height:0}
     .p-forja .plate{order:-1}
     .art{aspect-ratio:4/3}
     .topbar{height:60px}
     .nav a.opt{display:none}
     .plate::before,.plate::after{inset:-8px}
-    .three{grid-template-columns:1fr;gap:30px}
-    .three p{max-width:44ch}
-    .ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
     .ledger li:not(:nth-child(3n+1)){padding-left:0;border-left:0}
     .ledger li:nth-child(even){padding-left:clamp(14px,4vw,28px);border-left:1px solid var(--line)}
   }
@@ -333,11 +344,16 @@
             <p class="body rv" style="--d:.08s">Los une una misma convicción: entender Asia exige volver a sus fuentes, y el Perú universitario puede hacerlo con rigor.</p>
           </div>
         </div>
-        <ol class="three" aria-label="Los tres volúmenes">
-          <li class="tone-n rv"><span class="v">Volumen I</span><h3>Nalanda</h3><p>Narra la historia, la política y la economía de China, Japón y Corea.</p></li>
-          <li class="tone-f rv" style="--d:.1s"><span class="v">Volumen II</span><h3>Forja</h3><p>Investiga los conflictos que armaron la región.</p></li>
-          <li class="tone-a rv" style="--d:.2s"><span class="v">Volumen III</span><h3>Alma</h3><p>Busca el pensamiento detrás de ambos.</p></li>
-        </ol>
+        <div class="goo rv" id="goo" data-corner="round" data-neck="wide" data-pull="150" data-ease="wobbly" data-axis="auto">
+          <svg class="goo-svg" aria-hidden="true" focusable="false"><defs>
+            <linearGradient id="gooEdge" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#E4B65F" stop-opacity=".85"/><stop offset=".5" stop-color="#E8803F" stop-opacity=".85"/><stop offset="1" stop-color="#5DB5A4" stop-opacity=".85"/></linearGradient>
+          </defs><path class="goo-fill"/><path class="goo-edge"/></svg>
+          <ol class="goo-panels" aria-label="Los tres volúmenes">
+            <li class="gp tone-n"><span class="v">Volumen I</span><h3><a href="https://renzo34990.github.io/gengis-biblioteca/index.html?desde=triveni">Nalanda</a></h3><p>Narra la historia, la política y la economía de China, Japón y Corea.</p><span class="go" aria-hidden="true">Entrar <i>→</i></span></li>
+            <li class="gp tone-f"><span class="v">Volumen II</span><h3><a href="https://renzo34990.github.io/forja-guerra/">Forja</a></h3><p>Investiga los conflictos que armaron la región.</p><span class="go" aria-hidden="true">Entrar <i>→</i></span></li>
+            <li class="gp tone-a"><span class="v">Volumen III</span><h3><a href="https://renzo34990.github.io/alma-asia/">Alma</a></h3><p>Busca el pensamiento detrás de ambos.</p><span class="go" aria-hidden="true">Entrar <i>→</i></span></li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
@@ -489,6 +505,7 @@
 <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
 <script src="assets/horizon.js"></script>
 <script src="assets/blend.js"></script>
+<script src="assets/goo.js"></script>
 <script>
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -515,7 +532,8 @@
 
   // Revelados. Dentro de una seccion con transicion, nada aparece hasta que se asiente.
   var targets = document.querySelectorAll('.rv, .rise, .art, h1.brand');
-  function show(t){ (t._rv || t).classList.add('in'); var c = t.querySelector && t.querySelector('[data-count]'); if(c) count(c); else if(t.hasAttribute && t.hasAttribute('data-count')) count(t); }
+  var held = [];
+  function show(t){ if(window.TvT && TvT.holding){ held.push(t); return; } (t._rv || t).classList.add('in'); var c = t.querySelector && t.querySelector('[data-count]'); if(c) count(c); else if(t.hasAttribute && t.hasAttribute('data-count')) count(t); }
   if(reduceMotion || !('IntersectionObserver' in window)){
     targets.forEach(function(t){ t.classList.add('in'); });
   } else {
@@ -583,6 +601,7 @@
     });
   });
 
+  if(window.TvT) TvT.onTitles(function(){ var q = held; held = []; q.forEach(show); });
   if(window.Horizon) window.Horizon.init();
   if(window.PaletteBlend) window.PaletteBlend.init();
 })();

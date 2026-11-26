@@ -272,7 +272,8 @@
       this.stage.draw({ dir:1, base:ymid+bulge, bulge:bulge, heat:(.8+br)*e, reach:.36*(.7+.3*e) });
     };
     this.resize = function(){ this.stage.resize(); this.draw(1,0); };
-    this.loop();
+    this.draw(0,0);
+    if(window.TvT && TvT.holding) TvT.onTitles(function(){ self.loop(); }); else this.loop();
   }
 
   var Horizon = {
